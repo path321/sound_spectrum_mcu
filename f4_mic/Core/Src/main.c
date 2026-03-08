@@ -36,7 +36,7 @@
 /* USER CODE BEGIN PD */
 #define ARM_MATH_CM4
 
-#define DOUBLE_BUFFER_SIZE 2048
+#define DOUBLE_BUFFER_SIZE 8192
 #define HALF_DOUBLE_BUFFER_SIZE DOUBLE_BUFFER_SIZE/2
 #define FFT_SIZE  DOUBLE_BUFFER_SIZE/4 //2048
 #define HALF_FFT_SIZE FFT_SIZE/2
@@ -48,6 +48,11 @@
 #define FLOAT_TO_INT24 (8388608.0f)
 #define INT32_TO_FLOAT (1.0f / (21474836480.0f))
 #define FLOAT_TO_INT32 (2147483648.0f)
+
+#define USE_FLOAT32
+#if !defined(USE_FLOAT32)
+#define USE_Q31
+#endif
 
 /* USER CODE END PD */
 
@@ -83,6 +88,9 @@ const float  frequency_resolution    = (float)SAMPLING_RATE / (float)FFT_SIZE;
 float fft_in[FFT_SIZE];
 float fft_out[FFT_SIZE];
 float fft_power[HALF_FFT_SIZE];
+float fft_window[FFT_SIZE];
+float fft_show[FFT_SIZE] = {0};
+
 float32_t   maxValue;
 uint32_t    maxIndex;
 /* USER CODE END PV */
@@ -156,6 +164,7 @@ int main(void)
 	  Error_Handler();
   }
 
+  arm_hanning_f32(fft_window,FFT_SIZE);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -426,10 +435,10 @@ static void process_data(void){
 #if 1
 	static int index = 0;
 	for(size_t i=0; i < HALF_DOUBLE_BUFFER_SIZE; i=i+4){
-#if 0
+#if defined(USE_FLOAT32)
 		float left_channel = (float) ((int32_t) ((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1]);
 		float right_channel = (float) ((int32_t) ((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3]);
-#else
+#elif defined(USE_Q31)
 		float left_channel = (float) INT32_TO_FLOAT * ((((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1])<<8);
 		float right_channel = (float) INT32_TO_FLOAT *((((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3])<<8);
 #endif
@@ -450,8 +459,13 @@ static void process_data(void){
  * @brief Apply Fast Fourier Trasnformation to incoming data, compute magnitude and choose the highest index bin
  */
 static void find_max_frequency(void){
+
+	float fft_in_filtered[FFT_SIZE];
+
 	//Apply (Real) Fast fft to input array
-	arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
+	arm_mult_f32(fft_in,fft_window,fft_in_filtered,FFT_SIZE);
+
+	arm_rfft_fast_f32(&hfft, fft_in_filtered, fft_out, ifft_flag);
 
 	//Convert complex array from output buffer to magnitude
 	arm_cmplx_mag_f32(fft_out, fft_power, HALF_FFT_SIZE);
@@ -468,8 +482,13 @@ static void find_max_frequency(void){
 static void show_values(void){
     printf("\r\n");
     printf("max power: %f\r\n", maxValue);
-    printf("max index: %u\r\n", maxIndex);
-    printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
+    printf("max index: %lu\r\n", maxIndex);
+    if(maxValue <= 10){
+    	printf("frequency: None\r\n");
+    }else{
+    	printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
+    }
+
 }
 
 
