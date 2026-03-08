@@ -34,14 +34,21 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define BUFFER_SIZE 512
-#define INT16_TO_FLOAT 1.0f / (32768.0f)
-#define FLOAT_TO_INT16 (32768.0f)
-
-#define INT24_TO_FLOAT 1.0f / (8388608.0f)
-#define FLOAT_TO_INT24 (8388608.0f)
 #define ARM_MATH_CM4
-#define FFT_SIZE  2048
+
+#define DOUBLE_BUFFER_SIZE 2048
+#define HALF_DOUBLE_BUFFER_SIZE DOUBLE_BUFFER_SIZE/2
+#define FFT_SIZE  DOUBLE_BUFFER_SIZE/4 //2048
+#define HALF_FFT_SIZE FFT_SIZE/2
+#define SAMPLING_RATE 48828//48000
+
+#define INT16_TO_FLOAT (1.0f / (32768.0f))
+#define FLOAT_TO_INT16 (32768.0f)
+#define INT24_TO_FLOAT (1.0f / (8388608.0f))
+#define FLOAT_TO_INT24 (8388608.0f)
+#define INT32_TO_FLOAT (1.0f / (21474836480.0f))
+#define FLOAT_TO_INT32 (2147483648.0f)
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -62,17 +69,22 @@ DMA_HandleTypeDef hdma_spi3_rx;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-uint16_t mic_data[BUFFER_SIZE];
+uint16_t mic_data[DOUBLE_BUFFER_SIZE];
 static volatile uint16_t * buf_ptr = &mic_data[0];
 
 volatile bool data_ready_flag = false;
+volatile bool buffer_filled = false;
+volatile bool fft_done = false;
 
+arm_rfft_fast_instance_f32 hfft;
+uint8_t     ifft_flag                = 0;
+const float  frequency_resolution    = (float)SAMPLING_RATE / (float)FFT_SIZE;
 
-arm_rfft_fast_instance_f32 fft_handler;
 float fft_in[FFT_SIZE];
 float fft_out[FFT_SIZE];
-
-volatile bool fft_flag = false;
+float fft_power[HALF_FFT_SIZE];
+float32_t   maxValue;
+uint32_t    maxIndex;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,6 +102,8 @@ PUTCHAR_PROTOTYPE {
 }
 
 static void process_data(void);
+static void find_max_frequency(void);
+static void show_values(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -131,25 +145,35 @@ int main(void)
   MX_USART2_UART_Init();
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
-
-  printf("Hello world \n");
   HAL_Delay(1000);
   HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_RESET);
   HAL_Delay(1000);
   HAL_GPIO_WritePin(LED1_GPIO_Port,LED1_Pin,GPIO_PIN_SET);
   //HAL_Delay(1000);
-  HAL_StatusTypeDef ret = HAL_I2S_Receive_DMA(&hi2s3,mic_data,BUFFER_SIZE);
-  printf("ret=%d\n",ret);
+
+  arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
+  HAL_StatusTypeDef ret = HAL_I2S_Receive_DMA(&hi2s3,mic_data,HALF_DOUBLE_BUFFER_SIZE);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  if(data_ready_flag){
 		  process_data();
 	  }
+
+	  if(buffer_filled){
+		  buffer_filled = false;
+		  find_max_frequency();
+	  }
+
+	  if(fft_done){
+		  fft_done = false;
+		  show_values();
+	  }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -395,15 +419,47 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 static void process_data(void){
 #if 1
-	int index = 0;
-	for(size_t i=0; i < BUFFER_SIZE/2; i=i+4){
-		fft_in[index] = (float) ((buf_ptr[i]<<16)|buf_ptr[i+1]);
+	static int index = 0;
+	for(size_t i=0; i < HALF_DOUBLE_BUFFER_SIZE; i=i+4){
+#if 0
+		float left_channel = (float) ((int32_t) ((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1]);
+		float right_channel = (float) ((int32_t) ((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3]);
+#else
+		float left_channel = (float) INT32_TO_FLOAT * ((((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1])<<8);
+		float right_channel = (float) INT32_TO_FLOAT *((((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3])<<8);
+#endif
+
+		fft_in[index] = left_channel + right_channel;
 		index++;
 	}
 #endif
 	data_ready_flag = false;
 
+	if(index == FFT_SIZE){
+		buffer_filled = true;
+		index = 0;
+	}
 }
+
+static void find_max_frequency(void){
+	//Apply (Real) Fast fft to input array
+	arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
+
+	//Convert complex array from output buffer to magnitude
+	arm_cmplx_mag_f32(fft_out, fft_power, HALF_FFT_SIZE);
+
+	//Compute maximum value from previous array
+    arm_max_f32(fft_power, HALF_FFT_SIZE, &maxValue, &maxIndex);
+
+    fft_done = true;
+}
+static void show_values(void){
+    printf("\r\n");
+    printf("max power: %f\r\n", maxValue);
+    printf("max index: %u\r\n", maxIndex);
+    printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
+}
+
 
 
 
@@ -414,7 +470,7 @@ void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s){
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s){
-	buf_ptr = &mic_data[BUFFER_SIZE/2];
+	buf_ptr = &mic_data[HALF_DOUBLE_BUFFER_SIZE];
 
 	data_ready_flag = true;
 }
