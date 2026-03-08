@@ -152,7 +152,9 @@ int main(void)
   //HAL_Delay(1000);
 
   arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
-  HAL_StatusTypeDef ret = HAL_I2S_Receive_DMA(&hi2s3,mic_data,HALF_DOUBLE_BUFFER_SIZE);
+  if(HAL_I2S_Receive_DMA(&hi2s3,mic_data,HALF_DOUBLE_BUFFER_SIZE) != HAL_OK){
+	  Error_Handler();
+  }
 
   /* USER CODE END 2 */
 
@@ -417,6 +419,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+ * @brief Reform incoming data from microphone into float or Q.15, to prepare them for FFT
+ */
 static void process_data(void){
 #if 1
 	static int index = 0;
@@ -441,6 +446,9 @@ static void process_data(void){
 	}
 }
 
+/**
+ * @brief Apply Fast Fourier Trasnformation to incoming data, compute magnitude and choose the highest index bin
+ */
 static void find_max_frequency(void){
 	//Apply (Real) Fast fft to input array
 	arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
@@ -453,6 +461,10 @@ static void find_max_frequency(void){
 
     fft_done = true;
 }
+
+/**
+ * @brief Display the results of the frequency transformation
+ */
 static void show_values(void){
     printf("\r\n");
     printf("max power: %f\r\n", maxValue);
@@ -464,12 +476,14 @@ static void show_values(void){
 
 
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s){
+	// Choose first half of double buffer
 	buf_ptr = &mic_data[0];
 
 	data_ready_flag = true;
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s){
+	// Choose second half of double buffer
 	buf_ptr = &mic_data[HALF_DOUBLE_BUFFER_SIZE];
 
 	data_ready_flag = true;
