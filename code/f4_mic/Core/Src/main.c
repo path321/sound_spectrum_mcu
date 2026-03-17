@@ -25,6 +25,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "arm_math.h"
+#include "hanning.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -49,7 +50,7 @@
 #define INT32_TO_FLOAT (1.0f / (21474836480.0f))
 #define FLOAT_TO_INT32 (2147483648.0f)
 
-#define USE_FLOAT32
+//#define USE_FLOAT32
 #if !defined(USE_FLOAT32)
 #define USE_Q31
 #endif
@@ -165,6 +166,13 @@ int main(void)
   }
 
   arm_hanning_f32(fft_window,FFT_SIZE);
+
+//  printf("[");
+//  for(int i=0;i<FFT_SIZE;i++){
+//	  printf("%f,",fft_window[i]);
+//  }
+//  printf("]\n");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -463,9 +471,10 @@ static void find_max_frequency(void){
 	float fft_in_filtered[FFT_SIZE];
 
 	//Apply (Real) Fast fft to input array
-	arm_mult_f32(fft_in,fft_window,fft_in_filtered,FFT_SIZE);
+	arm_mult_f32(fft_in,hanning_window,fft_in_filtered,FFT_SIZE);
 
 	arm_rfft_fast_f32(&hfft, fft_in_filtered, fft_out, ifft_flag);
+	//arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
 
 	//Convert complex array from output buffer to magnitude
 	arm_cmplx_mag_f32(fft_out, fft_power, HALF_FFT_SIZE);
@@ -480,14 +489,22 @@ static void find_max_frequency(void){
  * @brief Display the results of the frequency transformation
  */
 static void show_values(void){
-    printf("\r\n");
-    printf("max power: %f\r\n", maxValue);
-    printf("max index: %lu\r\n", maxIndex);
-    if(maxValue <= 10){
-    	printf("frequency: None\r\n");
-    }else{
-    	printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
-    }
+//    printf("\r\n");
+//    printf("max power: %f\r\n", maxValue);
+//    printf("max index: %lu\r\n", maxIndex);
+//    if(maxValue <= 10){
+//    	printf("frequency: None\r\n");
+//    }else{
+//    	printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
+//    }
+	char ch[10000] = {0};
+	int index=0;
+	for(int i=0;i<HALF_FFT_SIZE;i++){
+		index+= sprintf(ch+index,"%.1f,",fft_power[i]);
+	}
+	sprintf(ch+index-1,"\n");
+
+	printf("%s",ch);
 
 }
 

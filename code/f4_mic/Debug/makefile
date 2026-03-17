@@ -68,6 +68,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 f4_mic.list \
 
+OBJCOPY_BIN += \
+f4_mic.bin \
+
 
 # All Target
 all: main-build
@@ -91,12 +94,17 @@ f4_mic.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+f4_mic.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "f4_mic.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) default.size.stdout f4_mic.elf f4_mic.list f4_mic.map
+	-$(RM) default.size.stdout f4_mic.bin f4_mic.elf f4_mic.list f4_mic.map
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
