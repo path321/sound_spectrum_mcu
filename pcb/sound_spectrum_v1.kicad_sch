@@ -2924,29 +2924,49 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Sensor_Audio:ICS-43434"
+		(symbol "Samacsys:ICS-43432"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "MK"
-				(at -7.62 6.35 0)
+			(property "Reference" "IC"
+				(at 26.67 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
+					(justify left top)
 				)
 			)
-			(property "Value" "ICS-43434"
-				(at 1.27 6.35 0)
+			(property "Value" "ICS-43432"
+				(at 26.67 5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
+					(justify left top)
 				)
 			)
-			(property "Footprint" "Sensor_Audio:InvenSense_ICS-43434-6_3.5x2.65mm"
+			(property "Footprint" "ICS43432"
+				(at 26.67 -94.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/sw_piezo/mic/mems-mic/data_sheet/ics-43432-data-sheet-v1.3.pdf"
+				(at 26.67 -194.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "MEMS MICROPHONE, -40 TO 85DEG C; Audio Control Type:MEMS Microphone; Supply Voltage Range:1.62V to 3.63V; Control Interface:I2S; Audio IC Case Style:LGA; No. of Pins:7Pins; Operating Temperature Min:-40C; Product Range:- RoHS Compliant: Yes"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2955,46 +2975,80 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.invensense.com/wp-content/uploads/2016/02/DS-000069-ICS-43434-v1.2.pdf"
-				(at 0 0 0)
+			(property "Height" "1.1"
+				(at 26.67 -394.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left top)
 					(hide yes)
 				)
 			)
-			(property "Description" "TDK InvenSense MEMS Microphone, 24-bit I2S, 65 dBA SNR, LGA-6"
-				(at 0 0 0)
+			(property "Manufacturer_Name" "TDK"
+				(at 26.67 -494.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left top)
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "microphone MEMS 24bit I2S ICS-43434 TDK InvenSense"
-				(at 0 0 0)
+			(property "Manufacturer_Part_Number" "ICS-43432"
+				(at 26.67 -594.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left top)
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "InvenSense*ICS*43434*"
-				(at 0 0 0)
+			(property "Mouser Part Number" "410-ICS-43432"
+				(at 26.67 -694.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
+					(justify left top)
 					(hide yes)
 				)
 			)
-			(symbol "ICS-43434_1_1"
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TDK-InvenSense/ICS-43432?qs=u4fy%2FsgLU9PhEy4uYlgedw%3D%3D"
+				(at 26.67 -794.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Arrow Part Number" "ICS-43432"
+				(at 26.67 -894.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Arrow Price/Stock" "https://www.arrow.com/en/products/ics-43432/invensense?utm_currency=USD&region=nac"
+				(at 26.67 -994.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "ICS-43432_1_1"
 				(rectangle
-					(start -7.62 5.08)
-					(end 7.62 -5.08)
+					(start 5.08 2.54)
+					(end 25.4 -10.16)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -3003,87 +3057,10 @@
 						(type background)
 					)
 				)
-				(polyline
-					(pts
-						(xy -5.08 1.27) (xy -5.08 -1.27)
-					)
-					(stroke
-						(width 0.381)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center -3.81 0)
-					(radius 1.27)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin input line
-					(at -10.16 2.54 0)
-					(length 2.54)
+				(pin passive line
+					(at 0 0 0)
+					(length 5.08)
 					(name "LR"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 7.62 270)
-					(length 2.54)
-					(name "VDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 0 -7.62 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 10.16 2.54 180)
-					(length 2.54)
-					(name "WS"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3098,10 +3075,46 @@
 						)
 					)
 				)
-				(pin input line
-					(at 10.16 0 180)
-					(length 2.54)
-					(name "SCK"
+				(pin passive line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "CONFIG"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 0)
+					(length 5.08)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -7.62 0)
+					(length 5.08)
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3116,10 +3129,28 @@
 						)
 					)
 				)
-				(pin output line
-					(at 10.16 -2.54 180)
-					(length 2.54)
-					(name "SD"
+				(pin passive line
+					(at 30.48 0 180)
+					(length 5.08)
+					(name "WS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 30.48 -2.54 180)
+					(length 5.08)
+					(name "SCK"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3127,6 +3158,24 @@
 						)
 					)
 					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 30.48 -5.08 180)
+					(length 5.08)
+					(name "SD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4972,16 +5021,16 @@
 		(uuid "0ceed6a6-fba6-4606-8082-e4b83a970c79")
 	)
 	(junction
-		(at 26.67 179.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "192872de-b051-4a56-a35c-d80e12c7a7de")
-	)
-	(junction
 		(at 199.39 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1aa95d42-609b-452c-96cd-b9ffed7cd6a5")
+	)
+	(junction
+		(at 83.82 181.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2960ad7f-53dc-4931-8769-7a9e7218bad4")
 	)
 	(junction
 		(at 88.9 21.59)
@@ -4996,18 +5045,6 @@
 		(uuid "3b0495ea-f002-4c93-bd33-7869da0312d4")
 	)
 	(junction
-		(at 36.83 179.07)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3cb06915-6053-4d84-9920-f0eabb2ddbc5")
-	)
-	(junction
-		(at 36.83 161.29)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3f05d485-d494-4e40-849c-b98ae6225ff1")
-	)
-	(junction
 		(at 99.06 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5020,6 +5057,12 @@
 		(uuid "42067b64-db8b-4411-9e00-118e4c9e8314")
 	)
 	(junction
+		(at 25.4 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "47f544ba-a30b-41a3-a049-ef3e2ac86d2f")
+	)
+	(junction
 		(at 73.66 21.59)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5030,6 +5073,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "55e35fae-028e-4980-9322-c12293c40efa")
+	)
+	(junction
+		(at 85.09 158.75)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "56ab3069-fb38-472a-8e54-c593576f6087")
 	)
 	(junction
 		(at 207.01 110.49)
@@ -5050,6 +5099,18 @@
 		(uuid "5b1d35b6-121f-48cf-bc67-883e7772412c")
 	)
 	(junction
+		(at 26.67 181.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bc12b6a-c94b-488f-894f-bf5e7a371d78")
+	)
+	(junction
+		(at 24.13 170.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5d54e9d2-2c6c-4175-8456-4d2483e75163")
+	)
+	(junction
 		(at 71.12 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5066,12 +5127,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6bbb9cb1-4cbb-4fb8-8252-dd5c11da68f7")
-	)
-	(junction
-		(at 82.55 161.29)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6c732297-b6bf-4440-8db0-7c5e94275a52")
 	)
 	(junction
 		(at 186.69 95.25)
@@ -5122,10 +5177,10 @@
 		(uuid "9c7cd6b1-d96f-4df2-8ede-b34c55608289")
 	)
 	(junction
-		(at 82.55 179.07)
+		(at 86.36 158.75)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "a418eabc-8e7e-46ce-9f5a-bc6a6c8303a3")
+		(uuid "a656de95-c0cf-4a50-906c-4c678e5699ef")
 	)
 	(junction
 		(at 57.15 21.59)
@@ -5146,12 +5201,6 @@
 		(uuid "b2f9679e-f156-43ce-8abb-e4496cdf8090")
 	)
 	(junction
-		(at 72.39 161.29)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d16f431a-2f36-4bc1-a805-53ad5c3e17e4")
-	)
-	(junction
 		(at 46.99 29.21)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5162,6 +5211,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d8ae64b9-f7ed-4e65-9d04-25563ac5d9b8")
+	)
+	(junction
+		(at 86.36 181.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dd469d25-5ea0-4cd7-aa0a-700bf099e6c6")
 	)
 	(junction
 		(at 209.55 110.49)
@@ -5186,6 +5241,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f2b92798-744d-467b-8814-220ae39657b7")
+	)
+	(junction
+		(at 24.13 181.61)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f5d38443-9a8e-4b1c-8dd4-39f06fa31a71")
 	)
 	(junction
 		(at 160.02 27.94)
@@ -5285,6 +5346,16 @@
 	)
 	(wire
 		(pts
+			(xy 77.47 181.61) (xy 77.47 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e00d1cd-1fda-48e1-8138-2e278c2a87da")
+	)
+	(wire
+		(pts
 			(xy 53.34 31.75) (xy 53.34 39.37)
 		)
 		(stroke
@@ -5325,13 +5396,23 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 177.8) (xy 82.55 179.07)
+			(xy 17.78 158.75) (xy 25.4 158.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1714bbc3-7911-487d-8cce-a5a9a47bb239")
+		(uuid "17b29a27-ec01-4784-b8df-0e2be966e510")
+	)
+	(wire
+		(pts
+			(xy 86.36 175.26) (xy 86.36 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1920f0d8-50e5-45fb-adcf-bb84af9343bd")
 	)
 	(wire
 		(pts
@@ -5375,13 +5456,13 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 167.64) (xy 26.67 179.07)
+			(xy 25.4 172.72) (xy 25.4 158.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "1f2a554d-f730-4c72-8307-f5a93606a048")
+		(uuid "1f6bcc77-31af-480e-bb48-59cdadc44dd3")
 	)
 	(wire
 		(pts
@@ -5405,16 +5486,6 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 161.29) (xy 82.55 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "228d3ed3-8c7f-40e2-a87c-741609e6c6c3")
-	)
-	(wire
-		(pts
 			(xy 91.44 67.31) (xy 99.06 67.31)
 		)
 		(stroke
@@ -5422,6 +5493,16 @@
 			(type default)
 		)
 		(uuid "22b133a5-36d3-41d4-b02d-0deea17fa4e7")
+	)
+	(wire
+		(pts
+			(xy 26.67 172.72) (xy 25.4 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2688c73d-bdf6-40cc-9598-62c6c5f7fbcd")
 	)
 	(wire
 		(pts
@@ -5465,13 +5546,33 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 170.18) (xy 50.8 170.18)
+			(xy 57.15 170.18) (xy 60.96 170.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "2b232c09-937f-49f9-87ed-c8e1a146db8e")
+	)
+	(wire
+		(pts
+			(xy 77.47 158.75) (xy 85.09 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2cc410d5-0046-4ae5-b61e-e5a54b3dd720")
+	)
+	(wire
+		(pts
+			(xy 17.78 158.75) (xy 17.78 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2daa6483-dd48-4d58-a65c-bd8aafdd5d99")
 	)
 	(wire
 		(pts
@@ -5495,7 +5596,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 172.72) (xy 50.8 172.72)
+			(xy 57.15 172.72) (xy 60.96 172.72)
 		)
 		(stroke
 			(width 0)
@@ -5545,13 +5646,13 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 161.29) (xy 72.39 167.64)
+			(xy 77.47 158.75) (xy 77.47 167.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "43048d8a-9b2a-454a-a063-aceb1b18f3cc")
+		(uuid "43615525-8e39-4b62-aa71-3605adadbf48")
 	)
 	(wire
 		(pts
@@ -5563,16 +5664,6 @@
 		)
 		(uuid "443f6050-32bd-4264-a765-8e895f92b667")
 	)
-	(wire
-		(pts
-			(xy 68.58 179.07) (xy 82.55 179.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "446751b4-9a1f-4499-aa87-ed52c3cc776d")
-	)
 	(polyline
 		(pts
 			(xy 132.08 140.97) (xy 132.08 196.85)
@@ -5582,16 +5673,6 @@
 			(type default)
 		)
 		(uuid "44ac50b1-c16a-4936-b72a-0b39a087955d")
-	)
-	(wire
-		(pts
-			(xy 26.67 179.07) (xy 36.83 179.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4536a8b5-fab2-4082-bb99-e54f16a4134a")
 	)
 	(wire
 		(pts
@@ -5683,6 +5764,16 @@
 		)
 		(uuid "4e7fae80-e514-4a86-8588-72f11e28949a")
 	)
+	(wire
+		(pts
+			(xy 26.67 167.64) (xy 24.13 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4e8f83b1-8be7-4e21-9a27-8e3b3ac5c6a6")
+	)
 	(polyline
 		(pts
 			(xy 220.98 78.74) (xy 220.98 118.11)
@@ -5735,6 +5826,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.67 181.61) (xy 46.99 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c2ad105-ba1b-4684-90be-3726d2426cf8")
+	)
+	(wire
+		(pts
 			(xy 160.02 35.56) (xy 160.02 39.37)
 		)
 		(stroke
@@ -5752,6 +5853,26 @@
 			(type default)
 		)
 		(uuid "602aa36a-1fa7-438d-8b26-a2591b8308d4")
+	)
+	(wire
+		(pts
+			(xy 86.36 170.18) (xy 83.82 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61cb364c-7711-4408-946c-0d23cd7afd47")
+	)
+	(wire
+		(pts
+			(xy 116.84 172.72) (xy 120.65 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6254562d-1d56-4ae6-a2bc-8425cc3de4eb")
 	)
 	(wire
 		(pts
@@ -5792,6 +5913,16 @@
 			(type default)
 		)
 		(uuid "654ad2f6-9c0b-420e-aef6-ad5e4fd99da8")
+	)
+	(wire
+		(pts
+			(xy 86.36 158.75) (xy 86.36 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "667c989c-b0ac-40de-b5ed-88a75865b3f0")
 	)
 	(wire
 		(pts
@@ -5845,6 +5976,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 158.75) (xy 102.87 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d75cf6c-4c65-446d-907d-f499a8a1d562")
+	)
+	(wire
+		(pts
 			(xy 212.09 91.44) (xy 209.55 91.44)
 		)
 		(stroke
@@ -5875,16 +6016,6 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 179.07) (xy 82.55 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7109bc12-7ce5-4b6b-8939-47e943b8af6e")
-	)
-	(wire
-		(pts
 			(xy 207.01 92.71) (xy 207.01 95.25)
 		)
 		(stroke
@@ -5902,6 +6033,16 @@
 			(type default)
 		)
 		(uuid "71aefdcc-67eb-4f67-823c-36bacb261ed0")
+	)
+	(wire
+		(pts
+			(xy 25.4 158.75) (xy 43.18 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7220220f-4356-475e-ac58-5168e19fc178")
 	)
 	(wire
 		(pts
@@ -5932,6 +6073,16 @@
 			(type default)
 		)
 		(uuid "73ffab6f-0163-4e24-a9c1-9fcc15b495d8")
+	)
+	(wire
+		(pts
+			(xy 17.78 181.61) (xy 17.78 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7529185b-8f72-4cca-a20a-9132c0b7f2b5")
 	)
 	(wire
 		(pts
@@ -6115,16 +6266,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 165.1) (xy 22.86 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8a328726-3f2b-44a2-b53c-8c76aca46fc7")
-	)
-	(wire
-		(pts
 			(xy 52.07 52.07) (xy 55.88 52.07)
 		)
 		(stroke
@@ -6152,6 +6293,16 @@
 			(type default)
 		)
 		(uuid "8f4c803e-1ea2-41bf-9541-63ad360886e3")
+	)
+	(wire
+		(pts
+			(xy 116.84 170.18) (xy 120.65 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8fbb0a62-3251-49ca-be6a-b71016c5013a")
 	)
 	(wire
 		(pts
@@ -6205,16 +6356,6 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 179.07) (xy 26.67 179.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9337a864-fae0-4a2f-806d-e3d461a8841e")
-	)
-	(wire
-		(pts
 			(xy 55.88 39.37) (xy 53.34 39.37)
 		)
 		(stroke
@@ -6265,13 +6406,13 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 161.29) (xy 72.39 161.29)
+			(xy 83.82 181.61) (xy 86.36 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9b558fde-6b14-4b80-9b4c-daf2c340221a")
+		(uuid "9b274fac-1db7-4fd6-829e-70310ba8affe")
 	)
 	(wire
 		(pts
@@ -6295,6 +6436,16 @@
 	)
 	(wire
 		(pts
+			(xy 17.78 181.61) (xy 24.13 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ccc6b28-df6f-4641-8bdc-137a68d6e193")
+	)
+	(wire
+		(pts
 			(xy 46.99 19.05) (xy 46.99 21.59)
 		)
 		(stroke
@@ -6315,23 +6466,13 @@
 	)
 	(wire
 		(pts
-			(xy 36.83 158.75) (xy 36.83 161.29)
+			(xy 24.13 170.18) (xy 24.13 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a0db8bee-c9bf-4568-b21a-400bcc375ba0")
-	)
-	(wire
-		(pts
-			(xy 82.55 158.75) (xy 82.55 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a14b8900-c615-4ca9-9c87-5565f06c286d")
+		(uuid "a0e6c4e1-abf8-47a0-a82e-e3af1ff20e4e")
 	)
 	(wire
 		(pts
@@ -6362,26 +6503,6 @@
 			(type default)
 		)
 		(uuid "a1dc3875-9079-4b61-a589-039711e451d1")
-	)
-	(wire
-		(pts
-			(xy 36.83 177.8) (xy 36.83 179.07)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a21d15b4-3efe-48cf-9df0-310971b50be9")
-	)
-	(wire
-		(pts
-			(xy 68.58 165.1) (xy 68.58 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a37b080a-88ab-49f7-a27b-c02f243788f7")
 	)
 	(wire
 		(pts
@@ -6425,23 +6546,13 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 167.64) (xy 96.52 167.64)
+			(xy 86.36 172.72) (xy 85.09 172.72)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a57da4b1-fc5d-4c04-89dc-a168f5073a5c")
-	)
-	(wire
-		(pts
-			(xy 36.83 179.07) (xy 36.83 181.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "aad0fa4f-8b65-40f2-8653-965a3b1ca2c8")
+		(uuid "a7d44235-80b8-440c-b43f-1b0ba7393758")
 	)
 	(wire
 		(pts
@@ -6452,6 +6563,26 @@
 			(type default)
 		)
 		(uuid "ac71070d-a54d-434b-9e85-fa14c69456e3")
+	)
+	(wire
+		(pts
+			(xy 85.09 158.75) (xy 85.09 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ac760942-8ba7-4fe1-91c5-7252880c79d7")
+	)
+	(wire
+		(pts
+			(xy 24.13 167.64) (xy 24.13 170.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aecd7ba1-94f3-41f2-94f4-ee040c88cb3d")
 	)
 	(wire
 		(pts
@@ -6525,13 +6656,13 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 172.72) (xy 68.58 179.07)
+			(xy 83.82 170.18) (xy 83.82 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bb4e3310-c812-4d86-809a-2b8ba5181fc4")
+		(uuid "bb75a7df-0278-4e74-a18f-113c2c3dd343")
 	)
 	(wire
 		(pts
@@ -6572,16 +6703,6 @@
 			(type default)
 		)
 		(uuid "bfdff1d9-3812-40a0-a52c-7436436a9bb6")
-	)
-	(wire
-		(pts
-			(xy 22.86 161.29) (xy 36.83 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bfe846a1-a59c-43c4-8b6d-a72e7d79481d")
 	)
 	(wire
 		(pts
@@ -6635,6 +6756,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.67 175.26) (xy 26.67 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c518cc4b-8de9-42a7-b50c-fe6577b4cce5")
+	)
+	(wire
+		(pts
 			(xy 156.21 27.94) (xy 160.02 27.94)
 		)
 		(stroke
@@ -6685,16 +6816,6 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 172.72) (xy 96.52 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cbc3392c-f193-4847-9573-c253c7822c72")
-	)
-	(wire
-		(pts
 			(xy 73.66 120.65) (xy 73.66 124.46)
 		)
 		(stroke
@@ -6705,23 +6826,13 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 167.64) (xy 50.8 167.64)
+			(xy 57.15 167.64) (xy 60.96 167.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "ce2d2144-201d-49be-9e04-757bc86672ab")
-	)
-	(wire
-		(pts
-			(xy 36.83 161.29) (xy 36.83 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d23e738f-f6e4-4a13-a749-35c236958088")
 	)
 	(wire
 		(pts
@@ -6755,13 +6866,13 @@
 	)
 	(wire
 		(pts
-			(xy 92.71 170.18) (xy 96.52 170.18)
+			(xy 24.13 181.61) (xy 26.67 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d70fe54c-cae1-47ae-acf8-b7eb1f1dfa25")
+		(uuid "d80a2105-7571-46b0-9288-e8e95bdcf558")
 	)
 	(wire
 		(pts
@@ -6792,6 +6903,16 @@
 			(type default)
 		)
 		(uuid "da33977d-4ff2-446e-b6f0-b32ba7b634f8")
+	)
+	(wire
+		(pts
+			(xy 116.84 167.64) (xy 120.65 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "da5f2cc9-1586-42a7-b139-45dd8d67eb2d")
 	)
 	(wire
 		(pts
@@ -6855,6 +6976,16 @@
 	)
 	(wire
 		(pts
+			(xy 85.09 158.75) (xy 86.36 158.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ded2f9e9-0001-4296-9349-ae82b1d83fc5")
+	)
+	(wire
+		(pts
 			(xy 232.41 59.69) (xy 240.03 59.69)
 		)
 		(stroke
@@ -6905,6 +7036,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 181.61) (xy 106.68 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e91c7c4d-97e7-474f-ac86-36ffe8c4c237")
+	)
+	(wire
+		(pts
 			(xy 91.44 85.09) (xy 99.06 85.09)
 		)
 		(stroke
@@ -6915,13 +7056,13 @@
 	)
 	(wire
 		(pts
-			(xy 82.55 161.29) (xy 82.55 162.56)
+			(xy 77.47 181.61) (xy 83.82 181.61)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f0f29271-d62b-4554-9f46-59413a252e2f")
+		(uuid "eec7f7da-31fa-4f12-9c4c-0890630ff7f1")
 	)
 	(wire
 		(pts
@@ -6965,13 +7106,13 @@
 	)
 	(wire
 		(pts
-			(xy 22.86 172.72) (xy 22.86 179.07)
+			(xy 24.13 170.18) (xy 26.67 170.18)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "fd6396b1-8245-4e90-b6d6-2eff30d585ec")
+		(uuid "fb97f676-d832-42a4-b07a-7cd5218db3fe")
 	)
 	(wire
 		(pts
@@ -7279,9 +7420,9 @@
 			)
 		)
 	)
-	(global_label "I2S_SCK"
+	(global_label "I2S_CK"
 		(shape input)
-		(at 50.8 170.18 0)
+		(at 60.96 170.18 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7291,29 +7432,7 @@
 		)
 		(uuid "393cc366-0633-454c-a03a-856173cadaaa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 61.6212 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2S_WS"
-		(shape input)
-		(at 96.52 167.64 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3ff1290d-7e51-4e43-b539-1a72f0689556")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.2526 167.64 0)
+			(at 70.4766 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7391,7 +7510,7 @@
 	)
 	(global_label "I2S_SD"
 		(shape input)
-		(at 50.8 172.72 0)
+		(at 60.96 172.72 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7401,7 +7520,7 @@
 		)
 		(uuid "453b2127-deb4-4235-8034-786fdabb8e86")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.3512 172.72 0)
+			(at 70.5112 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7411,7 +7530,7 @@
 			)
 		)
 	)
-	(global_label "I2S_CLK"
+	(global_label "I2S_CK"
 		(shape input)
 		(at 48.26 107.95 180)
 		(fields_autoplaced yes)
@@ -7423,7 +7542,7 @@
 		)
 		(uuid "4add71b7-f665-4285-98cd-af053ac03fb6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 37.6202 107.95 0)
+			(at 38.7434 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7446,28 +7565,6 @@
 		(uuid "50c07396-3597-4ee7-9554-82b30557dd7d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 207.01 81.5259 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "I2S_SCK"
-		(shape input)
-		(at 96.52 170.18 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5bab4b67-2202-47e6-9863-1cccda8eba72")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 107.3412 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7587,28 +7684,6 @@
 			)
 		)
 	)
-	(global_label "I2S_SD"
-		(shape input)
-		(at 96.52 172.72 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6d967141-12c2-4e3a-a4d3-48391dae7623")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 106.0712 172.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "I2C_SCL"
 		(shape input)
 		(at 99.06 85.09 0)
@@ -7677,7 +7752,7 @@
 	)
 	(global_label "I2S_WS"
 		(shape input)
-		(at 50.8 167.64 0)
+		(at 60.96 167.64 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7687,7 +7762,7 @@
 		)
 		(uuid "7d1b217e-3fd9-40a3-874a-701ee126193b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 60.5326 167.64 0)
+			(at 70.6926 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7715,6 +7790,50 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2S_CK"
+		(shape input)
+		(at 120.65 170.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "92538112-0ece-4977-a29a-2a0e96733fae")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.1666 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2S_WS"
+		(shape input)
+		(at 120.65 167.64 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "92e8c43d-138a-478b-8808-e66b9f3ead1a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.3826 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -7820,6 +7939,28 @@
 		(uuid "b88e3b90-4be8-4b2b-9474-d96c5d7e6519")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 110.7884 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2S_SD"
+		(shape input)
+		(at 120.65 172.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bd463401-71dd-41ea-80fd-d9bbbfeeb4c3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.2012 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8790,88 +8931,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Sensor_Audio:ICS-43434")
-		(at 82.55 170.18 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "3c4e0994-1089-41ae-a5bb-8172741e651f")
-		(property "Reference" "MK1-R1"
-			(at 84.6933 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "ICS-43434"
-			(at 84.6933 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Sensor_Audio:InvenSense_ICS-43434-6_3.5x2.65mm"
-			(at 82.55 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.invensense.com/wp-content/uploads/2016/02/DS-000069-ICS-43434-v1.2.pdf"
-			(at 82.55 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "TDK InvenSense MEMS Microphone, 24-bit I2S, 65 dBA SNR, LGA-6"
-			(at 82.55 170.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "98eed5e2-b53e-485c-a38a-f114bf29002a")
-		)
-		(pin "6"
-			(uuid "c243d759-5aaa-42de-9fbf-6764b92dbbe3")
-		)
-		(pin "1"
-			(uuid "544fb5ff-9ba7-4998-aa61-c1638f00209b")
-		)
-		(pin "4"
-			(uuid "ddf73de0-3557-4914-835d-c7f3f4c81de5")
-		)
-		(pin "3"
-			(uuid "d18d0093-e376-428d-a6d7-6a2e73631231")
-		)
-		(pin "5"
-			(uuid "7c954a77-2776-429c-8811-518a0b9e8596")
-		)
-		(instances
-			(project "sound_spectrum_v1"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "MK1-R1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 31.75 101.6 0)
 		(unit 1)
@@ -8939,73 +8998,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 82.55 181.61 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "42882a85-bfaa-49eb-a68c-db026029f8dc")
-		(property "Reference" "#PWR013"
-			(at 82.55 187.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 82.55 186.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 82.55 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 82.55 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 82.55 181.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2245810f-fcb4-4080-a3b1-ef6e7a8a3190")
-		)
-		(instances
-			(project "sound_spectrum_v1"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR013")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 36.83 181.61 0)
+		(at 46.99 181.61 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9014,7 +9007,7 @@
 		(fields_autoplaced yes)
 		(uuid "4ec04e12-8191-496e-bdaa-3416118f82c5")
 		(property "Reference" "#PWR012"
-			(at 36.83 187.96 0)
+			(at 46.99 187.96 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9023,7 +9016,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 36.83 186.69 0)
+			(at 46.99 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9031,7 +9024,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 36.83 181.61 0)
+			(at 46.99 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9040,7 +9033,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 36.83 181.61 0)
+			(at 46.99 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9049,7 +9042,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 36.83 181.61 0)
+			(at 46.99 181.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9272,6 +9265,138 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 102.87 158.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "58fd28c5-f62d-417c-a2d7-3b7e701e9825")
+		(property "Reference" "#PWR011"
+			(at 102.87 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 102.87 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 102.87 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 102.87 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c4e1c021-fa8b-4be9-a612-78218f191ce5")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 106.68 181.61 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5fd633e9-1afe-46dc-bb6b-c7e5a1699336")
+		(property "Reference" "#PWR013"
+			(at 106.68 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 106.68 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 106.68 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 106.68 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 106.68 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "23f99b27-1940-401d-a629-1e2e3519b371")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:USB_C_Plug_USB2.0")
 		(at 240.03 36.83 0)
 		(unit 1)
@@ -9439,35 +9564,53 @@
 		)
 	)
 	(symbol
-		(lib_id "Sensor_Audio:ICS-43434")
-		(at 36.83 170.18 0)
+		(lib_id "Samacsys:ICS-43432")
+		(at 26.67 167.64 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(fields_autoplaced yes)
-		(uuid "6ddc2b5b-c36f-4d65-897a-ff1a756476f5")
-		(property "Reference" "MK1-L1"
-			(at 38.9733 160.02 0)
+		(uuid "6f0cb75a-a2bf-4c0e-ae33-cbd47f3170b3")
+		(property "Reference" "IC1-L1"
+			(at 41.91 160.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "ICS-43434"
-			(at 38.9733 162.56 0)
+		(property "Value" "ICS-43432"
+			(at 41.91 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Sensor_Audio:InvenSense_ICS-43434-6_3.5x2.65mm"
-			(at 36.83 170.18 0)
+		(property "Footprint" "ICS43432"
+			(at 53.34 262.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/sw_piezo/mic/mems-mic/data_sheet/ics-43432-data-sheet-v1.3.pdf"
+			(at 53.34 362.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "MEMS MICROPHONE, -40 TO 85DEG C; Audio Control Type:MEMS Microphone; Supply Voltage Range:1.62V to 3.63V; Control Interface:I2S; Audio IC Case Style:LGA; No. of Pins:7Pins; Operating Temperature Min:-40C; Product Range:- RoHS Compliant: Yes"
+			(at 26.67 167.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9475,46 +9618,101 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.invensense.com/wp-content/uploads/2016/02/DS-000069-ICS-43434-v1.2.pdf"
-			(at 36.83 170.18 0)
+		(property "Height" "1.1"
+			(at 53.34 562.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 				(hide yes)
 			)
 		)
-		(property "Description" "TDK InvenSense MEMS Microphone, 24-bit I2S, 65 dBA SNR, LGA-6"
-			(at 36.83 170.18 0)
+		(property "Manufacturer_Name" "TDK"
+			(at 53.34 662.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left top)
 				(hide yes)
 			)
 		)
-		(pin "2"
-			(uuid "2876df53-c8d3-45af-b4ae-d3255ea25f9c")
+		(property "Manufacturer_Part_Number" "ICS-43432"
+			(at 53.34 762.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
 		)
-		(pin "6"
-			(uuid "d077ddbc-9c5e-4522-a4be-43c18b4bf8ae")
+		(property "Mouser Part Number" "410-ICS-43432"
+			(at 53.34 862.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
 		)
-		(pin "1"
-			(uuid "1fbdd038-69ec-4165-9ca6-4cbd578329fa")
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TDK-InvenSense/ICS-43432?qs=u4fy%2FsgLU9PhEy4uYlgedw%3D%3D"
+			(at 53.34 962.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
 		)
-		(pin "4"
-			(uuid "4f82f65e-5b1c-4ef9-9c30-e187465c20ec")
+		(property "Arrow Part Number" "ICS-43432"
+			(at 53.34 1062.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Arrow Price/Stock" "https://www.arrow.com/en/products/ics-43432/invensense?utm_currency=USD&region=nac"
+			(at 53.34 1162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
 		)
 		(pin "3"
-			(uuid "ccb47779-4ec2-49a6-9d3d-1fedc0e3653b")
+			(uuid "dacb33c3-eb4f-4564-ae8c-ab50aa369bb5")
+		)
+		(pin "4"
+			(uuid "6a4a07d2-1fcc-4c16-949e-1b8f50370d94")
 		)
 		(pin "5"
-			(uuid "5fc469a5-35e4-4388-897b-caeedec2dd14")
+			(uuid "89e62a33-dc6b-40c8-aa1e-cf4ed0472da7")
+		)
+		(pin "6"
+			(uuid "6880cc4c-599f-4d04-8c9f-139afd4a5d23")
+		)
+		(pin "2"
+			(uuid "e5b0672e-6236-4a1b-9632-77f893c9e1b8")
+		)
+		(pin "7"
+			(uuid "e696ebfa-e14e-4e4e-9b1c-a2cbf1e900c9")
+		)
+		(pin "1"
+			(uuid "a25e53d8-84b9-48e5-b988-2575393a5dfc")
 		)
 		(instances
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "MK1-L1")
+					(reference "IC1-L1")
 					(unit 1)
 				)
 			)
@@ -9805,7 +10003,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 22.86 168.91 0)
+		(at 17.78 171.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9813,7 +10011,7 @@
 		(dnp no)
 		(uuid "8d121ce8-b8d8-4f10-89ab-51bf54d2ca8d")
 		(property "Reference" "C12"
-			(at 26.67 167.6399 0)
+			(at 21.59 170.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9822,16 +10020,16 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 26.67 170.1799 0)
+			(at 21.59 172.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 23.8252 172.72 0)
+			(at 18.7452 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9840,7 +10038,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 22.86 168.91 0)
+			(at 17.78 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9849,7 +10047,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 22.86 168.91 0)
+			(at 17.78 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10160,7 +10358,7 @@
 			(uuid "bbd254f5-d333-4921-885c-d0a409f48fbe")
 		)
 		(instances
-			(project ""
+			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "U3")
 					(unit 1)
@@ -10656,7 +10854,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 68.58 168.91 0)
+		(at 77.47 171.45 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10665,7 +10863,7 @@
 		(fields_autoplaced yes)
 		(uuid "ad725eec-ac77-4b24-8481-11fbc37e1d72")
 		(property "Reference" "C13"
-			(at 72.39 167.6399 0)
+			(at 81.28 170.1799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10674,7 +10872,7 @@
 			)
 		)
 		(property "Value" "100nF"
-			(at 72.39 170.1799 0)
+			(at 81.28 172.7199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10683,7 +10881,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 69.5452 172.72 0)
+			(at 78.4352 175.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10692,7 +10890,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 68.58 168.91 0)
+			(at 77.47 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10701,7 +10899,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 68.58 168.91 0)
+			(at 77.47 171.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10792,7 +10990,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 36.83 158.75 0)
+		(at 43.18 158.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10801,7 +10999,7 @@
 		(fields_autoplaced yes)
 		(uuid "b240e085-5ed5-451b-874f-f6f3446cd167")
 		(property "Reference" "#PWR010"
-			(at 36.83 162.56 0)
+			(at 43.18 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10810,7 +11008,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 36.83 153.67 0)
+			(at 43.18 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10818,7 +11016,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 36.83 158.75 0)
+			(at 43.18 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10827,7 +11025,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 36.83 158.75 0)
+			(at 43.18 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10836,7 +11034,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 36.83 158.75 0)
+			(at 43.18 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10983,72 +11181,6 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR030")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3.3V")
-		(at 82.55 158.75 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "bff168e3-81f1-4f3c-9402-ce75af2fbfe9")
-		(property "Reference" "#PWR011"
-			(at 82.55 162.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3.3V"
-			(at 82.55 153.67 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 82.55 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 82.55 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 82.55 158.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a6c42f0c-22bb-4f43-b44c-d093dc80e5cd")
-		)
-		(instances
-			(project "sound_spectrum_v1"
-				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
-					(reference "#PWR011")
 					(unit 1)
 				)
 			)
@@ -11459,6 +11591,161 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Samacsys:ICS-43432")
+		(at 86.36 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d069db21-9ff1-4a82-97a4-bd780cf880d6")
+		(property "Reference" "IC2-R1"
+			(at 101.6 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ICS-43432"
+			(at 101.6 162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ICS43432"
+			(at 113.03 262.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://product.tdk.com/system/files/dam/doc/product/sw_piezo/mic/mems-mic/data_sheet/ics-43432-data-sheet-v1.3.pdf"
+			(at 113.03 362.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "MEMS MICROPHONE, -40 TO 85DEG C; Audio Control Type:MEMS Microphone; Supply Voltage Range:1.62V to 3.63V; Control Interface:I2S; Audio IC Case Style:LGA; No. of Pins:7Pins; Operating Temperature Min:-40C; Product Range:- RoHS Compliant: Yes"
+			(at 86.36 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "1.1"
+			(at 113.03 562.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "TDK"
+			(at 113.03 662.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "ICS-43432"
+			(at 113.03 762.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "410-ICS-43432"
+			(at 113.03 862.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TDK-InvenSense/ICS-43432?qs=u4fy%2FsgLU9PhEy4uYlgedw%3D%3D"
+			(at 113.03 962.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Arrow Part Number" "ICS-43432"
+			(at 113.03 1062.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Arrow Price/Stock" "https://www.arrow.com/en/products/ics-43432/invensense?utm_currency=USD&region=nac"
+			(at 113.03 1162.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "357e447d-5418-492d-8847-f24d23744c46")
+		)
+		(pin "4"
+			(uuid "16f16906-1e02-414b-94c3-5fe2a9f881ce")
+		)
+		(pin "5"
+			(uuid "60d84114-5c4d-4e25-b997-2b13f8d8d2cf")
+		)
+		(pin "6"
+			(uuid "fc105bea-ae89-40b1-b236-0ba896e022a1")
+		)
+		(pin "2"
+			(uuid "57338123-893a-425f-932c-87916154c6ac")
+		)
+		(pin "7"
+			(uuid "e1058733-5795-476a-97df-94136585d072")
+		)
+		(pin "1"
+			(uuid "ea81ca1f-bb2b-428b-84a0-c3d3de5c90c4")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "IC2-R1")
 					(unit 1)
 				)
 			)
