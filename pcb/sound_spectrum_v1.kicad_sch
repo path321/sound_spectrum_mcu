@@ -9811,7 +9811,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "8d121ce8-b8d8-4f10-89ab-51bf54d2ca8d")
 		(property "Reference" "C12"
 			(at 26.67 167.6399 0)
@@ -11682,7 +11681,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Jumper_3_Bridged12"
+		(property "Value" "BOOT_SELECT"
 			(at 29.21 93.9799 90)
 			(effects
 				(font
