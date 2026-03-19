@@ -9466,7 +9466,7 @@
 		)
 	)
 	(gr_text "Sound Analyzer v1.0"
-		(at 126.5 134 -0)
+		(at 111.5 134 -0)
 		(layer "B.SilkS")
 		(uuid "e0b1f5d2-3878-4cb8-9639-134481656ab3")
 		(effects
@@ -9474,7 +9474,7 @@
 				(size 1 1)
 				(thickness 0.1)
 			)
-			(justify left bottom mirror)
+			(justify right bottom mirror)
 		)
 	)
 	(segment
