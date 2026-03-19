@@ -2299,6 +2299,178 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Oscillator:SG-211"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Y"
+				(at -5.08 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "SG-211"
+				(at 1.27 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Oscillator:Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm"
+				(at 11.43 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-211SEE"
+				(at -2.54 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "CMOS Crystal Oscillator SPXO"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Crystal Clock Oscillator"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Oscillator*SMD*SeikoEpson*SG210*2.5x2.0mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SG-211_0_1"
+				(rectangle
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.905 -0.635) (xy -1.27 -0.635) (xy -1.27 0.635) (xy -0.635 0.635) (xy -0.635 -0.635) (xy 0 -0.635)
+						(xy 0 0.635) (xy 0.635 0.635) (xy 0.635 -0.635)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SG-211_1_1"
+				(pin input line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "~{ST}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 7.62 270)
+					(length 2.54)
+					(name "Vcc"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Power_Protection:USBLC6-2SC6"
 			(pin_names
 				(hide yes)
@@ -5039,6 +5211,12 @@
 		(uuid "336a20c3-a3eb-49ca-ab30-0f8b52abbcd4")
 	)
 	(junction
+		(at 170.18 27.94)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3ab49920-b924-484a-bfc7-3620317826c6")
+	)
+	(junction
 		(at 240.03 59.69)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5067,6 +5245,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "48e2d102-33cb-4119-be86-ad32570f0b3b")
+	)
+	(junction
+		(at 29.21 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "53fd0d32-95bb-4d8c-8704-069189c26f17")
 	)
 	(junction
 		(at 207.01 38.1)
@@ -5135,16 +5319,16 @@
 		(uuid "70d2fe13-ee83-496e-9f53-03c59fa196b6")
 	)
 	(junction
+		(at 25.4 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "78002d7e-1f49-4bb9-9918-16812e95690b")
+	)
+	(junction
 		(at 73.66 124.46)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7c37f13e-b8ac-4c92-bf3a-a8fb5813f8ce")
-	)
-	(junction
-		(at 170.18 27.94)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8744fbef-459b-49e0-8ad7-9503595b21fb")
 	)
 	(junction
 		(at 198.12 27.94)
@@ -5187,6 +5371,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a75da6f9-b902-4e48-8ed9-387e37569ed0")
+	)
+	(junction
+		(at 26.67 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b12a8363-ae66-4135-8111-017c21c2e8bc")
 	)
 	(junction
 		(at 69.85 21.59)
@@ -5261,8 +5451,80 @@
 		(uuid "fe15ca7d-400b-4392-ba31-e20006d7e557")
 	)
 	(no_connect
+		(at 55.88 59.69)
+		(uuid "1d61d9e5-1581-4c16-a053-cf54e452cb42")
+	)
+	(no_connect
+		(at 55.88 110.49)
+		(uuid "30c991b4-ad67-468a-9f15-068b8eea2695")
+	)
+	(no_connect
+		(at 55.88 97.79)
+		(uuid "379ff209-d71c-437f-af3f-67780aee1f8a")
+	)
+	(no_connect
+		(at 55.88 80.01)
+		(uuid "37b6b746-cf3d-452d-a093-98d9ba73f710")
+	)
+	(no_connect
+		(at 55.88 64.77)
+		(uuid "41706772-9557-478f-8a4f-2d3718993db3")
+	)
+	(no_connect
 		(at 255.27 29.21)
 		(uuid "53ac82ca-6f2e-4d84-b9cc-7a8631f5d54b")
+	)
+	(no_connect
+		(at 55.88 90.17)
+		(uuid "59246a14-7347-40e8-867c-7bc72bf2c739")
+	)
+	(no_connect
+		(at 55.88 102.87)
+		(uuid "5c995815-c0c0-40c8-b3df-5921c69f1da2")
+	)
+	(no_connect
+		(at 55.88 87.63)
+		(uuid "6415af08-2271-4b4a-b393-b7b8c9d124cf")
+	)
+	(no_connect
+		(at 91.44 49.53)
+		(uuid "790e9c32-c57d-4764-89de-410b09fa1470")
+	)
+	(no_connect
+		(at 55.88 100.33)
+		(uuid "8b750a7b-c19e-4ec8-9cee-01ad3d6d9348")
+	)
+	(no_connect
+		(at 55.88 77.47)
+		(uuid "9df5b87a-8537-467f-92ce-865915b6511d")
+	)
+	(no_connect
+		(at 55.88 85.09)
+		(uuid "aa5d15a4-1f33-4a63-97e5-67e7749b17f3")
+	)
+	(no_connect
+		(at 91.44 54.61)
+		(uuid "bbcb4985-852b-490c-b9be-aab1efe3d63b")
+	)
+	(no_connect
+		(at 55.88 67.31)
+		(uuid "cc16127a-610c-4498-9aa9-b48ddcbb3ed7")
+	)
+	(no_connect
+		(at 91.44 52.07)
+		(uuid "d04e98f8-d922-4c5d-813c-7505b4158334")
+	)
+	(no_connect
+		(at 91.44 46.99)
+		(uuid "d32e3849-2215-4fbc-a351-566c58e3c10b")
+	)
+	(no_connect
+		(at 55.88 69.85)
+		(uuid "d99a64b4-c887-471d-91e1-af9ed33d67da")
+	)
+	(no_connect
+		(at 55.88 74.93)
+		(uuid "f6a09524-b403-40c4-ad0f-885d7bd678ae")
 	)
 	(polyline
 		(pts
@@ -5396,6 +5658,16 @@
 	)
 	(wire
 		(pts
+			(xy 41.91 63.5) (xy 45.72 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "16070340-baa5-4e14-a1a1-0a239e7c952b")
+	)
+	(wire
+		(pts
 			(xy 17.78 158.75) (xy 25.4 158.75)
 		)
 		(stroke
@@ -5503,6 +5775,16 @@
 			(type default)
 		)
 		(uuid "2688c73d-bdf6-40cc-9598-62c6c5f7fbcd")
+	)
+	(wire
+		(pts
+			(xy 19.05 67.31) (xy 19.05 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26b12e90-3a46-44cd-b49b-859ffc924cf7")
 	)
 	(wire
 		(pts
@@ -5686,6 +5968,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 27.94) (xy 177.8 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47598c81-e136-452f-a1b6-ed087d8ae21e")
+	)
+	(wire
+		(pts
 			(xy 48.26 105.41) (xy 55.88 105.41)
 		)
 		(stroke
@@ -5723,6 +6015,16 @@
 			(type default)
 		)
 		(uuid "4cb869ce-13ad-4510-a9b3-064db2b41447")
+	)
+	(wire
+		(pts
+			(xy 25.4 71.12) (xy 25.4 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4cefc94f-0d21-46a3-928f-901744a23490")
 	)
 	(wire
 		(pts
@@ -5773,6 +6075,16 @@
 			(type default)
 		)
 		(uuid "4e8f83b1-8be7-4e21-9a27-8e3b3ac5c6a6")
+	)
+	(wire
+		(pts
+			(xy 29.21 55.88) (xy 26.67 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5227f2ba-45a3-4a72-968f-9529d7e05c0d")
 	)
 	(polyline
 		(pts
@@ -6186,6 +6498,16 @@
 	)
 	(wire
 		(pts
+			(xy 34.29 55.88) (xy 29.21 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dcada28-b3a1-43a6-ad79-552cc3e4feb8")
+	)
+	(wire
+		(pts
 			(xy 71.12 34.29) (xy 71.12 39.37)
 		)
 		(stroke
@@ -6243,6 +6565,16 @@
 			(type default)
 		)
 		(uuid "84737373-85f6-464a-a017-6b66d6e2767d")
+	)
+	(wire
+		(pts
+			(xy 29.21 52.07) (xy 29.21 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8509f278-13e0-4096-9267-d10cc997c2f2")
 	)
 	(wire
 		(pts
@@ -6386,16 +6718,6 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 27.94) (xy 170.18 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99450b27-88ad-42b4-a42f-187a2b3ee1a0")
-	)
-	(wire
-		(pts
 			(xy 255.27 26.67) (xy 261.62 26.67)
 		)
 		(stroke
@@ -6526,6 +6848,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.67 55.88) (xy 19.05 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a4c0e19e-2f41-44a3-9b81-29e8f0744dbc")
+	)
+	(wire
+		(pts
 			(xy 240.03 96.52) (xy 240.03 99.06)
 		)
 		(stroke
@@ -6553,6 +6885,16 @@
 			(type default)
 		)
 		(uuid "a7d44235-80b8-440c-b43f-1b0ba7393758")
+	)
+	(wire
+		(pts
+			(xy 45.72 63.5) (xy 45.72 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aad6c788-197a-4a5f-bade-3854d4481e0c")
 	)
 	(wire
 		(pts
@@ -6866,6 +7208,16 @@
 	)
 	(wire
 		(pts
+			(xy 19.05 71.12) (xy 25.4 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d6f90031-289d-4a74-b59c-2afbcdf5563f")
+	)
+	(wire
+		(pts
 			(xy 24.13 181.61) (xy 26.67 181.61)
 		)
 		(stroke
@@ -6996,6 +7348,16 @@
 	)
 	(wire
 		(pts
+			(xy 19.05 55.88) (xy 19.05 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0d5f13e-88f1-42eb-96b0-229e4d23f1c5")
+	)
+	(wire
+		(pts
 			(xy 78.74 31.75) (xy 53.34 31.75)
 		)
 		(stroke
@@ -7023,6 +7385,16 @@
 			(type default)
 		)
 		(uuid "e73e1277-24b6-4146-98f2-0ff6525c0251")
+	)
+	(wire
+		(pts
+			(xy 26.67 55.88) (xy 26.67 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e800b0e7-eb03-40ed-b179-b0ad64b6d51d")
 	)
 	(wire
 		(pts
@@ -7066,6 +7438,16 @@
 	)
 	(wire
 		(pts
+			(xy 45.72 57.15) (xy 55.88 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "efe25140-e7ed-4417-a529-2f41449d03d8")
+	)
+	(wire
+		(pts
 			(xy 207.01 110.49) (xy 209.55 110.49)
 		)
 		(stroke
@@ -7103,6 +7485,16 @@
 			(type default)
 		)
 		(uuid "f846532e-3568-479a-a8a4-f575c1024628")
+	)
+	(wire
+		(pts
+			(xy 25.4 71.12) (xy 34.29 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fb143ddc-c2a5-49a9-bb4c-ec488c8bdd4b")
 	)
 	(wire
 		(pts
@@ -8257,6 +8649,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 29.21 52.07 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "17a107ed-eca0-4e26-a2f8-9c827e920e73")
+		(property "Reference" "#PWR017"
+			(at 29.21 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 29.21 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 29.21 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 29.21 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 29.21 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "076cf148-cb00-43d5-b255-126260b16305")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 198.12 31.75 0)
 		(unit 1)
@@ -8303,6 +8761,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 198.12 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 80-C0805C105Z4VAC "
 			(at 198.12 31.75 0)
 			(effects
 				(font
@@ -8579,6 +9046,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 603-AA0805FR-071KL "
+			(at 152.4 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ba346435-19ff-41f0-961a-4e254ac3570f")
 		)
@@ -8641,6 +9117,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 170.18 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 603-AC0805DR-0710KL "
 			(at 170.18 33.02 0)
 			(effects
 				(font
@@ -8842,6 +9327,15 @@
 		)
 		(property "Description" "Ferrite bead"
 			(at 81.28 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " ASMPH-0805-4R7M-T "
+			(at 81.28 21.59 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9183,6 +9677,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 80-C0805C105Z4VAC "
+			(at 35.56 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7d28cc10-8f80-4abe-a602-de96ed9d6293")
 		)
@@ -9441,6 +9944,15 @@
 			)
 		)
 		(property "Description" "USB 2.0-only Type-C Plug connector"
+			(at 240.03 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " USB4085-GF-A "
 			(at 240.03 36.83 0)
 			(effects
 				(font
@@ -9773,6 +10285,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 603-RC0805FR-074K7L "
+			(at 168.91 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6c7b8f5c-d837-4f55-9b84-53e2f806192e")
 		)
@@ -9843,6 +10364,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 603-RC0805FR-074K7L "
+			(at 177.8 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "b13dedbf-06f5-450a-9b63-f04987434278")
 		)
@@ -9853,6 +10383,72 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 25.4 72.39 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7f26ce60-2fb5-4355-9797-0f79fb03520d")
+		(property "Reference" "#PWR020"
+			(at 25.4 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 25.4 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 25.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "639ff448-e1c1-4a16-8045-76c4ef75ff39")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "#PWR020")
 					(unit 1)
 				)
 			)
@@ -9977,6 +10573,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " AP2112K-3.3TRG1 "
+			(at 185.42 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "b448b62d-7d0c-4ddb-a94e-369ec519f780")
 		)
@@ -10047,6 +10652,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 17.78 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
 			(at 17.78 171.45 0)
 			(effects
 				(font
@@ -10127,6 +10741,15 @@
 		)
 		(property "Sim.Pins" "1=K 2=A"
 			(at 152.4 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " CMDA5AR7D1S "
+			(at 152.4 66.04 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10339,6 +10962,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" "USBLC6-2SC6"
+			(at 262.89 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "6"
 			(uuid "c1620016-e714-42f9-9895-f690637fea3f")
 		)
@@ -10487,6 +11119,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
+			(at 63.5 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "e4e268f1-ddda-4536-89e9-4e920662f5f5")
 		)
@@ -10549,6 +11190,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 160.02 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 81-GRM21BR61C106KE15 "
 			(at 160.02 31.75 0)
 			(effects
 				(font
@@ -10627,6 +11277,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 81-GRM21BR61C106KE15 "
+			(at 207.01 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "7eab49f4-c3c3-4283-b86c-58d10eb6f989")
 		)
@@ -10697,6 +11356,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
+			(at 88.9 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "313ae1e4-1726-48e9-903a-28fa7808eebd")
 		)
@@ -10707,6 +11375,88 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "C3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Oscillator:SG-211")
+		(at 34.29 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a4df1a94-407b-4dcb-826e-52e2cab7bf66")
+		(property "Reference" "Y2"
+			(at 36.83 56.388 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SG-210STF 48.0000ML5"
+			(at 29.464 54.102 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Oscillator:Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm"
+			(at 45.72 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-211SEE"
+			(at 31.75 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "CMOS Crystal Oscillator SPXO"
+			(at 34.29 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " SG-210STF 48.0000ML5 "
+			(at 34.29 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8a5d7449-1e7a-4916-8c46-d2f13aec229b")
+		)
+		(pin "4"
+			(uuid "f2f00b38-78e2-4c12-bee0-3833747bf0bb")
+		)
+		(pin "3"
+			(uuid "31151592-65ab-49af-94e0-2254ac281c42")
+		)
+		(pin "2"
+			(uuid "d80b2b96-c228-4835-8517-37174728c8f2")
+		)
+		(instances
+			(project ""
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "Y2")
 					(unit 1)
 				)
 			)
@@ -10767,6 +11517,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 80-C0805C105Z4VAC "
+			(at 99.06 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "3e5f2847-fc7c-4fc6-be16-11c1f178e85e")
 		)
@@ -10777,6 +11536,85 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C")
+		(at 19.05 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a8b8f353-c7ea-4df5-ac32-ca639b3926f3")
+		(property "Reference" "C15"
+			(at 22.86 62.2299 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100nF"
+			(at 22.86 64.7699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
+			(at 20.0152 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 19.05 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Unpolarized capacitor"
+			(at 19.05 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
+			(at 19.05 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "df1861f9-0ef7-4fba-ae31-f0a4b0d4790c")
+		)
+		(pin "1"
+			(uuid "0b39321a-eca4-436c-859b-fbae06877dda")
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "C15")
 					(unit 1)
 				)
 			)
@@ -10829,6 +11667,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 69.85 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
 			(at 69.85 25.4 0)
 			(effects
 				(font
@@ -10899,6 +11746,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 77.47 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
 			(at 77.47 171.45 0)
 			(effects
 				(font
@@ -11239,6 +12095,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 10129381-906004BLF "
+			(at 259.08 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "5a4cd7ef-70c0-465c-a378-2a8b857150b0")
 		)
@@ -11314,6 +12179,15 @@
 		)
 		(property "Description" "Generic connector, double row, 02x10, counter clockwise pin numbering scheme (similar to DIP package numbering), script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 196.85 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "77313-818-20LF"
+			(at 196.85 102.87 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11501,6 +12375,15 @@
 			)
 		)
 		(property "Description" "Single Pole Single Throw (SPST) switch, separate symbol"
+			(at 232.41 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " TS04-66-55-BK-100-SMT-TR "
 			(at 232.41 96.52 0)
 			(effects
 				(font
@@ -12144,6 +13027,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" "STM32G473CBT6"
+			(at 73.66 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "27"
 			(uuid "33748a5a-9fa5-432d-abba-06187a4497f4")
 		)
@@ -12484,6 +13376,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 80-C0805C105Z4VAC "
+			(at 46.99 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "343ba657-ded2-46e2-8a01-1d6d3e2c3e9f")
 		)
@@ -12620,6 +13521,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
+			(at 57.15 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "c5e56c4b-f106-414b-82b6-a3052082da7f")
 		)
@@ -12682,6 +13592,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 45.72 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
 			(at 45.72 43.18 0)
 			(effects
 				(font
@@ -12757,6 +13676,15 @@
 				(hide yes)
 			)
 		)
+		(property "Manufacturer_Part_Number" " 581-KGM21NR71E104KM "
+			(at 231.14 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "f3d8d2fb-55a5-4f89-a1a1-5b077e2e89e8")
 		)
@@ -12818,6 +13746,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 265.43 26.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "CRCW08055K10JNEA"
+			(at 265.43 26.67 90)
 			(effects
 				(font
 					(size 1.27 1.27)
