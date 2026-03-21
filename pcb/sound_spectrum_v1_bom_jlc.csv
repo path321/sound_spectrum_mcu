@@ -1,0 +1,18 @@
+Reference,Qty,Value,DNP,Exclude from BOM,Exclude from Board,Footprint,Datasheet,Manufacturer_Part_Number
+"C1,C3,C6,C7,C8,C14,C15",7,100nF,,,,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,~, 581-KGM21NR71E104KM 
+"C2,C4,C5,C9",4,1uF,,,,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,~, 80-C0805C105Z4VAC 
+"C10,C11",2,10uF,,,,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,~, 81-GRM21BR61C106KE15 
+D2,1,LED,,,,LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder,~, CMDA5AR7D1S 
+FB1,1,4.7uH,,,,Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder,~, ASMPH-0805-4R7M-T 
+J1,1,SWD_CONN,,,,Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical,~, 10129381-906004BLF 
+J2,1,Conn_02x10_Counter_Clockwise,,,,Connector_PinHeader_2.54mm:PinHeader_2x10_P2.54mm_Vertical,~,77313-818-20LF
+P1,1,USB_C_Plug_USB2.0,,,,Connector_USB:USB_C_Receptacle_GCT_USB4085,https://www.usb.org/sites/default/files/documents/usb_type-c.zip, USB4085-GF-A 
+R1,1,10k,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~, 603-AC0805DR-0710KL 
+R3,1,5.1k,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~,CRCW08055K10JNEA
+R4,1,1k,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~, 603-AA0805FR-071KL 
+"R5,R6",2,4.7k,,,,Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder,~, 603-RC0805FR-074K7L 
+SW2,1,SW_DPST_x2,,,,Button_Switch_THT:SW_PUSH_6mm,~, TS04-66-55-BK-100-SMT-TR 
+U1,1,STM32G473CBTx,,,,Package_QFP:LQFP-48_7x7mm_P0.5mm,https://www.st.com/resource/en/datasheet/stm32g473cb.pdf,STM32G473CBT6
+U2,1,AP2112K-3.3,,,,Package_TO_SOT_SMD:SOT-23-5,https://www.diodes.com/assets/Datasheets/AP2112.pdf, AP2112K-3.3TRG1 
+U3,1,USBLC6-2SC6,,,,Package_TO_SOT_SMD:SOT-23-6,https://www.st.com/resource/en/datasheet/usblc6-2.pdf,USBLC6-2SC6
+Y2,1,SG-210STF 48.0000ML5,,,,Oscillator:Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm,https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-211SEE, SG-210STF 48.0000ML5 

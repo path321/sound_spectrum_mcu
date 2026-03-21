@@ -2299,6 +2299,89 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Oscillator:SG-211"
 			(pin_names
 				(offset 0.254)
@@ -7679,7 +7762,7 @@
 		)
 		(uuid "ff1a8478-0a75-4253-bf8f-be0c0e343645")
 	)
-	(global_label "USB_DP_EXT"
+	(global_label "USB_EXT_P"
 		(shape input)
 		(at 259.08 39.37 0)
 		(fields_autoplaced yes)
@@ -7691,7 +7774,7 @@
 		)
 		(uuid "0507b5f8-7268-4ff2-9ceb-fd9be4844429")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 273.7716 39.37 0)
+			(at 272.4065 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7855,7 +7938,7 @@
 			)
 		)
 	)
-	(global_label "USB_DP_EXT"
+	(global_label "USB_EXT_P"
 		(shape input)
 		(at 270.51 62.23 0)
 		(fields_autoplaced yes)
@@ -7867,7 +7950,7 @@
 		)
 		(uuid "2fab90fb-2fc2-47bd-80a9-4568be22b7b7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 285.2016 62.23 0)
+			(at 283.8365 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7921,7 +8004,7 @@
 			)
 		)
 	)
-	(global_label "USB_DM"
+	(global_label "USB_N"
 		(shape input)
 		(at 256.54 59.69 180)
 		(fields_autoplaced yes)
@@ -7933,7 +8016,7 @@
 		)
 		(uuid "33eb5aee-8c31-4a5d-8427-297c11d90c9a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 245.9607 59.69 0)
+			(at 247.4467 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8295,7 +8378,7 @@
 			)
 		)
 	)
-	(global_label "USB_DP"
+	(global_label "USB_P"
 		(shape input)
 		(at 99.06 77.47 0)
 		(fields_autoplaced yes)
@@ -8307,7 +8390,7 @@
 		)
 		(uuid "7d01ac82-d17e-427f-abca-321583e3eb95")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 109.4579 77.47 0)
+			(at 108.0928 77.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8339,7 +8422,7 @@
 			)
 		)
 	)
-	(global_label "USB_DP"
+	(global_label "USB_P"
 		(shape input)
 		(at 256.54 62.23 180)
 		(fields_autoplaced yes)
@@ -8351,7 +8434,7 @@
 		)
 		(uuid "7e73bb10-7dbb-4160-8f9c-d207225f33db")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 246.1421 62.23 0)
+			(at 247.5072 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8449,7 +8532,7 @@
 			)
 		)
 	)
-	(global_label "USB_DM"
+	(global_label "USB_N"
 		(shape input)
 		(at 99.06 74.93 0)
 		(fields_autoplaced yes)
@@ -8461,7 +8544,7 @@
 		)
 		(uuid "b09a67b3-9211-4ddf-a72d-1b4abe7c5738")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 109.6393 74.93 0)
+			(at 108.1533 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8625,7 +8708,7 @@
 			)
 		)
 	)
-	(global_label "USB_DM_EXT"
+	(global_label "USB_EXT_N"
 		(shape input)
 		(at 270.51 59.69 0)
 		(fields_autoplaced yes)
@@ -8637,7 +8720,7 @@
 		)
 		(uuid "e14d1903-27bd-4962-9778-a7b942e3eab7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 285.383 59.69 0)
+			(at 283.897 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8691,7 +8774,7 @@
 			)
 		)
 	)
-	(global_label "USB_DM_EXT"
+	(global_label "USB_EXT_N"
 		(shape input)
 		(at 259.08 34.29 0)
 		(fields_autoplaced yes)
@@ -8703,7 +8786,7 @@
 		)
 		(uuid "f3891cd3-ef30-424b-b50a-6806316d0a76")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 273.953 34.29 0)
+			(at 272.467 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8884,6 +8967,70 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 243.84 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "196275ce-bd68-4539-a240-c22604cf6cdf")
+		(property "Reference" "H1"
+			(at 246.38 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 246.38 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 243.84 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 243.84 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 243.84 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "H1")
 					(unit 1)
 				)
 			)
@@ -9789,7 +9936,7 @@
 			(uuid "3d41d41f-6b52-4e2b-8639-546945589236")
 		)
 		(instances
-			(project ""
+			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#FLG01")
 					(unit 1)
@@ -10100,7 +10247,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4085"
+		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
 			(at 243.84 36.83 0)
 			(effects
 				(font
@@ -10840,7 +10987,7 @@
 			(uuid "939a265f-a2ca-436e-af78-01f2f959f0b7")
 		)
 		(instances
-			(project ""
+			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#FLG02")
 					(unit 1)
@@ -11544,6 +11691,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 267.97 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a4a4ed60-d017-42c4-9bec-9a097a9e07ad")
+		(property "Reference" "H3"
+			(at 270.51 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 270.51 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 267.97 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 267.97 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 267.97 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 88.9 25.4 0)
 		(unit 1)
@@ -11696,7 +11907,7 @@
 			(uuid "d80b2b96-c228-4835-8517-37174728c8f2")
 		)
 		(instances
-			(project ""
+			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "Y2")
 					(unit 1)
@@ -13075,6 +13286,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 256.54 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d8fec572-fe3f-44f0-959b-f9bde78b65ab")
+		(property "Reference" "H2"
+			(at 259.08 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 259.08 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 256.54 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 256.54 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 256.54 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Jumper:Jumper_3_Bridged12")
 		(at 31.75 92.71 90)
 		(unit 1)
@@ -13703,6 +13978,70 @@
 			(project "sound_spectrum_v1"
 				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
 					(reference "#PWR03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 279.4 113.03 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ee72944f-597e-4b97-90dc-ba84dcaee7f3")
+		(property "Reference" "H4"
+			(at 281.94 111.7599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 281.94 114.2999 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 279.4 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 279.4 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 279.4 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "sound_spectrum_v1"
+				(path "/e63e39d7-6ac0-4ffd-8aa3-1841a4541b55"
+					(reference "H4")
 					(unit 1)
 				)
 			)
