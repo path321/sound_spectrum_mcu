@@ -470,9 +470,10 @@ static void find_max_frequency(void){
 
 	float fft_in_filtered[FFT_SIZE];
 
-	//Apply (Real) Fast fft to input array
+	//Apply windowing to time data
 	arm_mult_f32(fft_in,hanning_window,fft_in_filtered,FFT_SIZE);
 
+	//Apply (Real) Fast fft to input array
 	arm_rfft_fast_f32(&hfft, fft_in_filtered, fft_out, ifft_flag);
 	//arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
 
@@ -497,14 +498,19 @@ static void show_values(void){
 //    }else{
 //    	printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
 //    }
+#if 1
 	char ch[10000] = {0};
-	int index=0;
+	int len=0;
+	len+= snprintf(ch+len,sizeof(ch) - len,"[");
 	for(int i=0;i<HALF_FFT_SIZE;i++){
-		index+= sprintf(ch+index,"%.1f,",fft_power[i]);
+		len+= snprintf(ch+len,sizeof(ch) - len,"%.1f,",fft_power[i]);
 	}
-	sprintf(ch+index-1,"\n");
+	snprintf(ch+len-1,sizeof(ch)-len,"]\n");
 
 	printf("%s",ch);
+#else
+	printf("[1,2,3,4,5,4,3,2,1,2]\n");
+#endif
 
 }
 

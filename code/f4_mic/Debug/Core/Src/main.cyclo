@@ -8,7 +8,7 @@
 ../Core/Src/main.c:363:13:MX_GPIO_Init	1
 ../Core/Src/main.c:442:13:process_data	3
 ../Core/Src/main.c:469:13:find_max_frequency	1
-../Core/Src/main.c:491:13:show_values	2
-../Core/Src/main.c:514:6:HAL_I2S_RxHalfCpltCallback	1
-../Core/Src/main.c:521:6:HAL_I2S_RxCpltCallback	1
-../Core/Src/main.c:533:6:Error_Handler	1
+../Core/Src/main.c:492:13:show_values	2
+../Core/Src/main.c:520:6:HAL_I2S_RxHalfCpltCallback	1
+../Core/Src/main.c:527:6:HAL_I2S_RxCpltCallback	1
+../Core/Src/main.c:539:6:Error_Handler	1
