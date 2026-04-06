@@ -1,8 +1,6 @@
 import pyqtgraph as pg
 from pyqtgraph.Qt import QtWidgets
 import numpy as np
-from get_from_serial import get_data,ReadLine
-
 import serial
 import numpy as np
     
@@ -30,14 +28,38 @@ class ReadLine:
                 self.buf.extend(data)
 
 fft_size = 2048//2
-
 x_axis = np.linspace(0,24000,fft_size)
-app = QtWidgets.QApplication([])
-win = pg.plot()
-data = np.random.normal(size=fft_size)
-curve = win.plot(x_axis,data)
 
-ser = serial.Serial('COM7', 115200)
+start_freq = 50 #Hz
+start_freq_index = 0
+stop_freq = 20.3 *pow(10,3) #Hz
+stop_freq_index = 0
+
+for i in range(len(x_axis)):
+    freq = x_axis[i]
+    if((start_freq_index == 0) and (freq > start_freq)):
+        start_freq_index = i
+    if((stop_freq_index == 0) and (freq > stop_freq)):
+        stop_freq_index = i-1
+
+x_axis = x_axis[start_freq_index:stop_freq_index+1]
+len_axis = stop_freq_index+1 - start_freq_index
+
+app = QtWidgets.QApplication([])
+window = pg.plot()
+
+##values = [0 for i in range(fft_size)]
+values = [0 for i in range(len_axis)]
+
+title = "FFT Spectrum"
+
+window.setWindowTitle(title)
+window.setGeometry(100, 100, 600, 500)
+
+curve = window.plot(x = x_axis,y = values)
+
+
+ser = serial.Serial('COM6', 115200)
 rl = ReadLine(ser)
 
 def update():
@@ -48,20 +70,27 @@ def update():
             values=values[1:-2].split(',')
             if('' not in values):
                 values = np.asfarray(values,dtype = float)
+                values = values[start_freq_index:stop_freq_index+1]
             else:
                 raise ValueError
         else:
             raise ValueError
     except Exception as e:
         print(e)
-        values = [0 for i in range(fft_size)]
+##        values = [0 for i in range(fft_size)]
+        values = [0 for i in range(len_axis)]
     
     #value = np.random.normal(size=256)#get_data()
+
     
-    curve.setData(x_axis,values)
+    curve.setData(x= x_axis,y=values)
+    
+if __name__ == '__main__':
 
-timer = pg.QtCore.QTimer()
-timer.timeout.connect(update)
-timer.start(10)
+    timer = pg.QtCore.QTimer()
+    timer.timeout.connect(update)
+    timer.start(10)
 
-app.exec()
+    import sys
+    if (sys.flags.interactive != 1) or not hasattr(QtCore, 'PYQT_VERSION'):
+        app.exec()
