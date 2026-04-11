@@ -26,6 +26,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "arm_math.h"
+#include "hanning.h"
 //#include "hanning.h"
 /* USER CODE END Includes */
 
@@ -42,29 +43,12 @@
 #define HALF_DOUBLE_BUFFER_SIZE DOUBLE_BUFFER_SIZE/2
 #define FFT_SIZE  DOUBLE_BUFFER_SIZE/4 //2048
 #define HALF_FFT_SIZE FFT_SIZE/2
-#define SAMPLING_RATE 47872//48000
-
-#define INT16_TO_FLOAT (1.0f / (32768.0f))
-#define FLOAT_TO_INT16 (32768.0f)
-#define INT24_TO_FLOAT (1.0f / (8388608.0f))
-#define FLOAT_TO_INT24 (8388608.0f)
-#define INT32_TO_FLOAT (1.0f / (21474836480.0f))
-#define FLOAT_TO_INT32 (2147483648.0f)
-
-//#define USE_FLOAT32
-#if !defined(USE_FLOAT32)
-#define USE_Q31
-#endif
-
+#define SAMPLING_RATE 47872//~48000
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#ifdef __GNUC__
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -73,7 +57,7 @@ DMA_HandleTypeDef hdma_spi2_rx;
 
 /* USER CODE BEGIN PV */
 uint16_t mic_data[DOUBLE_BUFFER_SIZE];
-static volatile uint16_t * buf_ptr = &mic_data[0];
+static volatile uint16_t * buf_ptr = &mic_data[0]; //pointer to each half of buffer
 
 volatile bool data_ready_flag = false;
 volatile bool buffer_filled = false;
@@ -83,12 +67,11 @@ arm_rfft_fast_instance_f32 hfft;
 uint8_t     ifft_flag                = 0;
 const float  frequency_resolution    = (float)SAMPLING_RATE / (float)FFT_SIZE;
 
-float fft_in[FFT_SIZE];
-float fft_power[HALF_FFT_SIZE];
-float fft_window[FFT_SIZE];
+static float input_data[FFT_SIZE];
+static float fft_power[HALF_FFT_SIZE];
 
-float32_t   maxValue;
-uint32_t    maxIndex;
+uint32_t last_send = 0;
+uint32_t refresh_time = 30; //ms
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -97,13 +80,9 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2S2_Init(void);
 /* USER CODE BEGIN PFP */
-PUTCHAR_PROTOTYPE {
-	CDC_Transmit_FS((uint8_t*)&ch,1);
-	return ch;
-}
 
-static void process_data(void);
-static void find_max_frequency(void);
+static void process_input_data(void);
+static void compute_frequencies(void);
 static void show_values(void);
 /* USER CODE END PFP */
 
@@ -136,7 +115,15 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+#if 0
+  //Enable cycle counter
+  CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
+  DWT->CYCCNT = 0;
+  DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
+  volatile uint32_t t1;
+  volatile uint32_t t2;
+  volatile uint32_t diff;
+#endif
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -150,18 +137,15 @@ int main(void)
   HAL_Delay(1000);
   HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_SET);
   //HAL_Delay(1000);
+  //HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_RESET);
 
-  arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
+  //arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
+  arm_rfft_fast_init_2048_f32(&hfft); //Use specific size for less build code size
+
+  //Start reading from microphones
   if(HAL_I2S_Receive_DMA(&hi2s2,mic_data,HALF_DOUBLE_BUFFER_SIZE) != HAL_OK){
 	  Error_Handler();
   }
-  arm_hanning_f32(fft_window,FFT_SIZE);
-
-//  printf("[");
-//  for(int i=0;i<FFT_SIZE;i++){
-//	  printf("%f,",fft_window[i]);
-//  }
-//  printf("]\n");
 
   /* USER CODE END 2 */
 
@@ -170,19 +154,20 @@ int main(void)
   while (1)
   {
 	  if(data_ready_flag){
-		  process_data();
+		  data_ready_flag = false;
+		  process_input_data();
 	  }
 
 	  if(buffer_filled){
 		  buffer_filled = false;
-		  find_max_frequency();
+		  compute_frequencies();
 	  }
 
-	  if(fft_done){
+	  if(((HAL_GetTick()-last_send)>=refresh_time) && fft_done){
+		  last_send = HAL_GetTick();
 		  fft_done = false;
 		  show_values();
 	  }
-
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -353,25 +338,22 @@ static void MX_GPIO_Init(void)
 
 /* USER CODE BEGIN 4 */
 /**
- * @brief Reform incoming data from microphone into float or Q.15, to prepare them for FFT
+ * @brief Reform incoming data from stereo 24-bit integer to mono float, to prepare them for FFT
  */
-static void process_data(void){
-#if 1
-	static int index = 0;
-	for(size_t i=0; i < HALF_DOUBLE_BUFFER_SIZE; i=i+4){
-#if defined(USE_FLOAT32)
-		float left_channel = (float) ((int32_t) ((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1]);
-		float right_channel = (float) ((int32_t) ((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3]);
-#elif defined(USE_Q31)
-		float left_channel = (float) INT32_TO_FLOAT * ((((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1])<<8);
-		float right_channel = (float) INT32_TO_FLOAT *((((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3])<<8);
-#endif
+static void process_input_data(void){
 
-		fft_in[index] = left_channel + right_channel;
+	static int index = 0;
+
+	for(size_t i=0; i < HALF_DOUBLE_BUFFER_SIZE; i=i+4){
+
+		//Stereo to mono
+		int32_t left_channel = (((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1]);
+		int32_t right_channel = (((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3]);
+		float mono = (float) ((left_channel + right_channel)/2.0);
+
+		input_data[index] = mono;
 		index++;
 	}
-#endif
-	data_ready_flag = false;
 
 	if(index == FFT_SIZE){
 		buffer_filled = true;
@@ -380,25 +362,35 @@ static void process_data(void){
 }
 
 /**
- * @brief Apply Fast Fourier Trasnformation to incoming data, compute magnitude and choose the highest index bin
+ * @brief Apply Fast Fourier Transformation to incoming data and compute Power Spectrum of signal
  */
-static void find_max_frequency(void){
+static void compute_frequencies(void){
 
+	//Temporary buffer used as input/output between actions
+	float input_data_windowed[FFT_SIZE];
 	float fft_out[FFT_SIZE];
-	float fft_in_filtered[FFT_SIZE];
+	float mag_buffer[HALF_FFT_SIZE];
+	float power_spectrum_now[HALF_FFT_SIZE];
+
+	//Weight for current values in weighted moving average
+	const float alpha = 0.8;
 
 	//Apply windowing to time data
-	arm_mult_f32(fft_in,fft_window,fft_in_filtered,FFT_SIZE);
+	arm_mult_f32(input_data,hanning_window,input_data_windowed,FFT_SIZE);
 
-	//Apply (Real) Fast fft to input array
-	arm_rfft_fast_f32(&hfft, fft_in_filtered, fft_out, ifft_flag);
-	//arm_rfft_fast_f32(&hfft, fft_in, fft_out, ifft_flag);
+	//Apply (Real) Fast FFT to input array
+	arm_rfft_fast_f32(&hfft, input_data_windowed, fft_out, ifft_flag);
 
 	//Convert complex array from output buffer to magnitude
-	arm_cmplx_mag_f32(fft_out, fft_power, HALF_FFT_SIZE);
+	arm_cmplx_mag_f32(fft_out, mag_buffer, HALF_FFT_SIZE);
 
-	//Compute maximum value from previous array
-    arm_max_f32(fft_power, HALF_FFT_SIZE, &maxValue, &maxIndex);
+	//Normalize with 1/(N*N) to get Power spectrum
+	arm_scale_f32(mag_buffer,1.0/(FFT_SIZE*FFT_SIZE),power_spectrum_now,HALF_FFT_SIZE);
+
+	//Average spectrum, with emphasis on newest sample
+	for(int i=0;i<HALF_FFT_SIZE;i++){
+		fft_power[i] = power_spectrum_now[i]*alpha + fft_power[i]*(1-alpha);
+	}
 
     fft_done = true;
 }
@@ -407,29 +399,16 @@ static void find_max_frequency(void){
  * @brief Display the results of the frequency transformation
  */
 static void show_values(void){
-//    printf("\r\n");
-//    printf("max power: %f\r\n", maxValue);
-//    printf("max index: %lu\r\n", maxIndex);
-//    if(maxValue <= 10){
-//    	printf("frequency: None\r\n");
-//    }else{
-//    	printf("frequency: %f\r\n", (maxIndex * frequency_resolution));
-//    }
-#if 1
-	char ch[5000] = {0};
+
+	char ch[12000] = {0};
 	int len=0;
-	len+= snprintf(ch+len,sizeof(ch) - len,"[");
-	for(int i=0;i<HALF_FFT_SIZE;i++){
-		len+= snprintf(ch+len,sizeof(ch) - len,"%.1f,",fft_power[i]);
-	}
-	snprintf(ch+len-1,sizeof(ch)-len,"]\n");
+		len += snprintf(ch + len, sizeof(ch) - len, "[");
+		for (int i = 0; i < HALF_FFT_SIZE; i++) {
+			len += snprintf(ch + len, sizeof(ch) - len, "%.1f,", fft_power[i]);
+		}
+		snprintf(ch + len - 1, sizeof(ch) - len, "]\n");
 
-	//printf("%s",ch);
-	CDC_Transmit_FS((uint8_t*)ch,strlen(ch));
-#else
-	printf("[1,2,3,4,5,4,3,2,1,2]\n");
-#endif
-
+		CDC_Transmit_FS((uint8_t*) ch, strlen(ch));
 }
 
 
