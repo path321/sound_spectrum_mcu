@@ -353,12 +353,15 @@ static void MX_GPIO_Init(void)
 static void process_input_data(void) {
 
 	static int index = 0;
+	int16_t input_data[HALF_DOUBLE_BUFFER_SIZE];
+
+	//Copy data to avoid data corruption
+	memcpy(input_data,(uint16_t*)buf_ptr,HALF_DOUBLE_BUFFER_SIZE);
 
 	for (size_t i = 0; i < HALF_DOUBLE_BUFFER_SIZE; i = i + 4) {
-
 		//Stereo to mono
-		int32_t left_channel = (((int32_t) buf_ptr[i] << 16) | buf_ptr[i + 1]);
-		int32_t right_channel = (((int32_t) buf_ptr[i + 2] << 16) | buf_ptr[i + 3]);
+		int32_t left_channel = (((int32_t) input_data[i] << 16) | input_data[i + 1]);
+		int32_t right_channel = (((int32_t) input_data[i + 2] << 16) | input_data[i + 3]);
 		float mono = (float) ((left_channel + right_channel) / 2.0);
 
 		input_data[index] = mono;
