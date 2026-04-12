@@ -356,11 +356,11 @@ static void process_input_data(void) {
 	int16_t input_data[HALF_DOUBLE_BUFFER_SIZE];
 
 	//Copy data to avoid data corruption
-	memcpy(input_data,(uint16_t*)buf_ptr,HALF_DOUBLE_BUFFER_SIZE);
+	memcpy(input_data, (uint16_t*) buf_ptr, sizeof(input_data));
 
 	for (size_t i = 0; i < HALF_DOUBLE_BUFFER_SIZE; i = i + 4) {
 		//Stereo to mono
-		int32_t left_channel = (((int32_t) input_data[i] << 16) | input_data[i + 1]);
+		int32_t left_channel = (((int32_t) input_data[i] << 16)	| input_data[i + 1]);
 		int32_t right_channel = (((int32_t) input_data[i + 2] << 16) | input_data[i + 3]);
 		float mono = (float) ((left_channel + right_channel) / 2.0);
 
