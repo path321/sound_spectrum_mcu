@@ -41,9 +41,13 @@
 
 #define DOUBLE_BUFFER_SIZE 8192
 #define HALF_DOUBLE_BUFFER_SIZE DOUBLE_BUFFER_SIZE/2
-#define FFT_SIZE  DOUBLE_BUFFER_SIZE/4 //2048
+#define FFT_SIZE 2048
 #define HALF_FFT_SIZE FFT_SIZE/2
-#define SAMPLING_RATE 47872//~48000
+#define SAMPLING_RATE 47872//~48000 , taken from CubeMX
+
+#if (DOUBLE_BUFFER_SIZE % FFT_SIZE) != 0
+#error "Input buffer size shall be integer multiple of FFT size"
+#endif
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -57,18 +61,18 @@ DMA_HandleTypeDef hdma_spi2_rx;
 
 /* USER CODE BEGIN PV */
 uint16_t mic_data[DOUBLE_BUFFER_SIZE];
-static volatile uint16_t * buf_ptr = &mic_data[0]; //pointer to each half of buffer
+static volatile uint16_t* buf_ptr = &mic_data[0]; //pointer to each half of buffer
 
 volatile bool data_ready_flag = false;
 volatile bool buffer_filled = false;
 volatile bool fft_done = false;
 
 arm_rfft_fast_instance_f32 hfft;
-uint8_t     ifft_flag                = 0;
-const float  frequency_resolution    = (float)SAMPLING_RATE / (float)FFT_SIZE;
+const uint8_t     ifft_flag                = 0;
+const float  frequency_resolution = (float)SAMPLING_RATE / (float)FFT_SIZE;
 
-static float input_data[FFT_SIZE];
-static float fft_power[HALF_FFT_SIZE];
+static float32_t input_data[FFT_SIZE];
+static float32_t fft_power[HALF_FFT_SIZE];
 
 uint32_t last_send = 0;
 uint32_t refresh_time = 30; //ms
@@ -116,13 +120,14 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 #if 0
-  //Enable cycle counter
+  //Enable cycle counter for measuring time duration
   CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;
   DWT->CYCCNT = 0;
   DWT->CTRL |= DWT_CTRL_CYCCNTENA_Msk;
   volatile uint32_t t1;
   volatile uint32_t t2;
   volatile uint32_t diff;
+  const uint32_t sys_clock_freq = HAL_RCC_GetSysClockFreq();
 #endif
   /* USER CODE END SysInit */
 
@@ -132,20 +137,25 @@ int main(void)
   MX_I2S2_Init();
   MX_USB_Device_Init();
   /* USER CODE BEGIN 2 */
-  HAL_Delay(1000);
-  HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_RESET);
-  HAL_Delay(1000);
   HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_SET);
-  //HAL_Delay(1000);
-  //HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_RESET);
+  HAL_Delay(500);
+  HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_RESET);
+  HAL_Delay(500);
 
   //arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
+#if (FFT_SIZE != 2048)
+#error "Please use respective arm_rfft_fast_init_XXX_f32() function"
+#else
   arm_rfft_fast_init_2048_f32(&hfft); //Use specific size for less build code size
+#endif
 
   //Start reading from microphones
   if(HAL_I2S_Receive_DMA(&hi2s2,mic_data,HALF_DOUBLE_BUFFER_SIZE) != HAL_OK){
 	  Error_Handler();
   }
+
+  //Successful initilization
+  HAL_GPIO_WritePin(LED_DBG_GPIO_Port,LED_DBG_Pin,GPIO_PIN_SET);
 
   /* USER CODE END 2 */
 
@@ -340,22 +350,22 @@ static void MX_GPIO_Init(void)
 /**
  * @brief Reform incoming data from stereo 24-bit integer to mono float, to prepare them for FFT
  */
-static void process_input_data(void){
+static void process_input_data(void) {
 
 	static int index = 0;
 
-	for(size_t i=0; i < HALF_DOUBLE_BUFFER_SIZE; i=i+4){
+	for (size_t i = 0; i < HALF_DOUBLE_BUFFER_SIZE; i = i + 4) {
 
 		//Stereo to mono
-		int32_t left_channel = (((int32_t)buf_ptr[i]<<16)|buf_ptr[i+1]);
-		int32_t right_channel = (((int32_t)buf_ptr[i+2]<<16)|buf_ptr[i+3]);
-		float mono = (float) ((left_channel + right_channel)/2.0);
+		int32_t left_channel = (((int32_t) buf_ptr[i] << 16) | buf_ptr[i + 1]);
+		int32_t right_channel = (((int32_t) buf_ptr[i + 2] << 16) | buf_ptr[i + 3]);
+		float mono = (float) ((left_channel + right_channel) / 2.0);
 
 		input_data[index] = mono;
 		index++;
 	}
 
-	if(index == FFT_SIZE){
+	if (index == FFT_SIZE) {
 		buffer_filled = true;
 		index = 0;
 	}
@@ -364,51 +374,51 @@ static void process_input_data(void){
 /**
  * @brief Apply Fast Fourier Transformation to incoming data and compute Power Spectrum of signal
  */
-static void compute_frequencies(void){
+static void compute_frequencies(void) {
 
-	//Temporary buffer used as input/output between actions
+	//Intermediate buffers used as input/output between actions
 	float input_data_windowed[FFT_SIZE];
 	float fft_out[FFT_SIZE];
 	float mag_buffer[HALF_FFT_SIZE];
 	float power_spectrum_now[HALF_FFT_SIZE];
 
 	//Weight for current values in weighted moving average
-	const float alpha = 0.8;
+	const float alpha = 0.7;
 
 	//Apply windowing to time data
-	arm_mult_f32(input_data,hanning_window,input_data_windowed,FFT_SIZE);
+	arm_mult_f32(input_data, hanning_window, input_data_windowed, FFT_SIZE);
 
 	//Apply (Real) Fast FFT to input array
 	arm_rfft_fast_f32(&hfft, input_data_windowed, fft_out, ifft_flag);
 
-	//Convert complex array from output buffer to magnitude
-	arm_cmplx_mag_f32(fft_out, mag_buffer, HALF_FFT_SIZE);
+	//Convert complex array from output buffer to squared magnitude
+	arm_cmplx_mag_squared_f32(fft_out, mag_buffer, HALF_FFT_SIZE);
 
-	//Normalize with 1/(N*N) to get Power spectrum
-	arm_scale_f32(mag_buffer,1.0/(FFT_SIZE*FFT_SIZE),power_spectrum_now,HALF_FFT_SIZE);
+	//Normalize with 2/(N*N) to get Power spectrum (one-sided, average power of the signal over the N samples)
+	arm_scale_f32(mag_buffer, 2.0 / (FFT_SIZE * FFT_SIZE), power_spectrum_now, HALF_FFT_SIZE);
 
-	//Average spectrum, with emphasis on newest sample
-	for(int i=0;i<HALF_FFT_SIZE;i++){
-		fft_power[i] = power_spectrum_now[i]*alpha + fft_power[i]*(1-alpha);
+	//Average spectrum values, with emphasis on newest sample
+	for (int i = 0; i < HALF_FFT_SIZE; i++) {
+		fft_power[i] = power_spectrum_now[i] * alpha + fft_power[i] * (1 - alpha);
 	}
 
-    fft_done = true;
+	fft_done = true;
 }
 
 /**
  * @brief Display the results of the frequency transformation
  */
-static void show_values(void){
+static void show_values(void) {
 
-	char ch[12000] = {0};
-	int len=0;
-		len += snprintf(ch + len, sizeof(ch) - len, "[");
-		for (int i = 0; i < HALF_FFT_SIZE; i++) {
-			len += snprintf(ch + len, sizeof(ch) - len, "%.1f,", fft_power[i]);
-		}
-		snprintf(ch + len - 1, sizeof(ch) - len, "]\n");
+	char ch[12000] = { 0 };
+	int len = 0;
+	len += snprintf(ch + len, sizeof(ch) - len, "[");
+	for (int i = 0; i < HALF_FFT_SIZE; i++) {
+		len += snprintf(ch + len, sizeof(ch) - len, "%.1f,", fft_power[i]);
+	}
+	snprintf(ch + len - 1, sizeof(ch) - len, "]\n");
 
-		CDC_Transmit_FS((uint8_t*) ch, strlen(ch));
+	CDC_Transmit_FS((uint8_t*) ch, strlen(ch));
 }
 
 
