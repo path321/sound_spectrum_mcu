@@ -14,7 +14,7 @@ import serial.tools.list_ports
 from time import sleep
 
 DEBUG = False
-FFT_N = 2048
+FFT_N = 1024
 MIC_LIMIT_LOW = 50  # Hz
 MIC_LIMIT_HIGH = 20.3 * pow(10, 3)  # Hz
 
@@ -32,7 +32,7 @@ class ReadLine:
             self.buf = self.buf[i + 1:]
             return r
         while True:
-            i = max(1, min(2048, self.s.in_waiting))
+            i = max(1, min(512, self.s.in_waiting))
             data = self.s.read(i)
             i = data.find(b"\n")
             if i >= 0:
@@ -59,8 +59,13 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
             sleep(2)
             exit(0)
         else:
-            ser = serial.Serial(com_port, 12000000)
-            rl = ReadLine(ser)
+            try:
+                ser = serial.Serial(com_port, 12000000)
+                rl = ReadLine(ser)
+            except Exception as e:
+                print(e)
+                sleep(2)
+                exit(0)
 
     # Get data from com port
     try:
@@ -127,8 +132,12 @@ class MainWindow(QMainWindow):
         self.plot_graph = self.win.addPlot()
         self.plot_graph.showGrid(x=True, y=True)
         self.pen = pg.mkPen(color=(0, 0, 255))
+        self.plot_graph.setLabel("left", "dBFS")
+        self.plot_graph.setLabel("bottom", "Hz")
+        self.plot_graph.setYRange(-91, 0)
         self.data_line = self.plot_graph.plot(
             x=self.x, y=self.y, pen=self.pen, symbol='o', symbolSize=3)
+    
 
         # Button
         self.btn = QPushButton("Run")
