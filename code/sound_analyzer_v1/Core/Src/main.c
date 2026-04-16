@@ -27,6 +27,7 @@
 #include <stdbool.h>
 #include "arm_math.h"
 #include "hanning.h"
+#include "a_weighting.h"
 //#include "hanning.h"
 /* USER CODE END Includes */
 
@@ -422,7 +423,9 @@ static void compute_frequencies(arm_rfft_fast_instance_f32* hfft,float32_t* inpu
 	//dBFS = 20*log10(mag*(4/N)) = 20*(ln(mag*(4/N))/ln(10)) = (20/ln(10))*(ln(mag) + ln(4/N))
 	arm_vlog_f32(mag_now, temp, HALF_FFT_SIZE); // = ln(mag)
 	arm_scale_f32(temp, 8.6858896380, temp2, HALF_FFT_SIZE); // = (20/ln(10))*ln(mag) = 8.685889638*ln(mag)
-	arm_offset_f32(temp2, -48.1647993062, mag_now, HALF_FFT_SIZE); //= (20/ln(10))*ln(mag) + ((20/ln(10))*ln(4/N)) = 20/ln(10))*ln(mag) -48.16479930623698
+	//arm_offset_f32(temp2, -48.1647993062, mag_now, HALF_FFT_SIZE); //= (20/ln(10))*ln(mag) + ((20/ln(10))*ln(4/N)) = 20/ln(10))*ln(mag) -48.16479930623698
+	arm_offset_f32(temp2, 120-48.1647993062, temp, HALF_FFT_SIZE); //= (20/ln(10))*ln(mag) + ((20/ln(10))*ln(4/N)) = 20/ln(10))*ln(mag) -48.16479930623698
+	arm_add_f32(temp,a_weighting_db,mag_now,HALF_FFT_SIZE);
 
 	//Average spectrum values, with emphasis on newest sample
 	for (int i = 0; i < HALF_FFT_SIZE; i++) {
