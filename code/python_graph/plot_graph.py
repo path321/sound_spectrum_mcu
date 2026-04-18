@@ -132,9 +132,9 @@ class MainWindow(QMainWindow):
         self.plot_graph = self.win.addPlot()
         self.plot_graph.showGrid(x=True, y=True)
         self.pen = pg.mkPen(color=(0, 0, 255))
-        self.plot_graph.setLabel("left", "dBFS")
+        self.plot_graph.setLabel("left", "dBSPL")
         self.plot_graph.setLabel("bottom", "Hz")
-        self.plot_graph.setYRange(-91, 0)
+        self.plot_graph.setYRange(0, 120)
         self.data_line = self.plot_graph.plot(
             x=self.x, y=self.y, pen=self.pen, symbol='o', symbolSize=3)
     

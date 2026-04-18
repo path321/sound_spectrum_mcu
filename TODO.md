@@ -4,10 +4,10 @@ Check the following in order to keep track of tasks
 ## Device FW & HW
   - [ ] Optimize USB transmit
   - [ ] Measure duration of each process
+  - [ ] Display Average value
 
 ## PC SW (plotting)
  - [ ] Use Bar graphs instead of lines
- - [ ] Code restructure with PySide
 
 ## Backlog
 - [ ] Redesign USB lines, as they are unstable
@@ -28,4 +28,5 @@ Check the following in order to keep track of tasks
 - [x] Average signal between transmit
 - [X] Show error message in case device is not found
 - [X] Add buttons for Run/Stop plotting
+- [X] Code restructure with PySide
 - [X] Detect COM port of HW board automatically via USB descriptors (need improving)

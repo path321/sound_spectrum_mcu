@@ -26,9 +26,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "arm_math.h"
-#include "hanning.h"
-#include "a_weighting.h"
-//#include "hanning.h"
+#include "weighting.h"
+#include "window.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +44,21 @@
 #define FFT_SIZE 1024
 #define HALF_FFT_SIZE FFT_SIZE/2
 #define SAMPLING_RATE 47872//~48000 , taken from CubeMX
+
+#define USE_FLATTOP_WINDOW
+//#define USE_HANNING_WINDOW
+//#define USE_RECTANGULAR_WINDOW
+
+#define USE_A_WEIGHTING
+//#define USE_C_WEIGHTING
+
+#if ((!defined(USE_FLATTOP_WINDOW))&&(!defined(USE_HANNING_WINDOW))&&(!defined(USE_RECTANGULAR_WINDOW)) || (defined(USE_HANNING_WINDOW)&&defined(USE_RECTANGULAR_WINDOW))|| (defined(USE_FLATTOP_WINDOW)&&defined(USE_RECTANGULAR_WINDOW)) || (defined(USE_FLATTOP_WINDOW)&&defined(USE_HANNING_WINDOW)))
+#error "Please choose at least one between GSM,NBIOT and CATM definition"
+#endif
+
+#if defined(USE_A_WEIGHTING) && defined(USE_C_WEIGHTING)
+#error "Please choose only 1 between A and C weighting"
+#endif
 
 #if (DOUBLE_BUFFER_SIZE % FFT_SIZE) != 0
 #error "Input buffer size shall be integer multiple of FFT size"
@@ -78,7 +92,8 @@ static void MX_I2S2_Init(void);
 
 static void process_input_data(float32_t*);
 static void compute_frequencies(arm_rfft_fast_instance_f32*,float32_t*,float32_t*);
-static void show_values(float32_t*);
+static void scale_frequencies(float32_t* , float32_t* );
+static void show_values(float32_t*, size_t );
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -128,10 +143,11 @@ int main(void) {
 	MX_USB_Device_Init();
 	/* USER CODE BEGIN 2 */
 	arm_rfft_fast_instance_f32 hfft;
-	const float32_t frequency_resolution = (float32_t) SAMPLING_RATE / (float32_t) FFT_SIZE;
+	//const float32_t frequency_resolution = (float32_t) SAMPLING_RATE / (float32_t) FFT_SIZE;
 
 	float32_t input_td[FFT_SIZE] = { 0 };
 	float32_t fft_mag[HALF_FFT_SIZE] = { 0 };
+	float32_t output_db[HALF_FFT_SIZE] = { 0 };
 
 	uint32_t last_send = 0;
 	uint32_t refresh_time = 10; //ms
@@ -176,7 +192,8 @@ int main(void) {
 			last_send = HAL_GetTick();
 			fft_done = false;
 			tx_complete = false;
-			show_values(fft_mag);
+			scale_frequencies(fft_mag, output_db);
+			show_values(output_db, HALF_FFT_SIZE);
 		}
 		/* USER CODE END WHILE */
 
@@ -390,19 +407,29 @@ static void process_input_data(float32_t* mic_data) {
  * @param[in] input_td Time-domain data from microphone
  * @param[out] out_freq dBFS signal values in frequency
  */
-static void compute_frequencies(arm_rfft_fast_instance_f32* hfft,float32_t* input_td,float32_t* out_freq) {
+static void compute_frequencies(arm_rfft_fast_instance_f32* hfft,float32_t* input_td,float32_t* output_freq) {
 
 	//Intermediate buffers used as input/output between actions
 	float32_t input_td_windowed[FFT_SIZE] = { 0 };
 	float32_t fft_out[FFT_SIZE] = { 0 };
 	float32_t mag_now[HALF_FFT_SIZE] = { 0 };
 	float32_t temp[HALF_FFT_SIZE] = { 0 };
-	float32_t temp2[HALF_FFT_SIZE] = { 0 };
+	static const uint8_t ifft_flag = 0;
 
 	//Weight for current values in weighted moving average
-	static const float32_t alpha = 0.7;
+	static const float32_t alpha = 0.5;
 
-	static const uint8_t ifft_flag = 0;
+	//Window functions
+#if defined(USE_HANNING_WINDOW)
+	static float32_t const* window = hanning;
+	static float32_t sum_of_window = sum_hanning;
+#elif defined(USE_FLATTOP_WINDOW)
+	static float32_t const* window = flattop;
+	static const float32_t sum_of_window = sum_flattop;
+#else
+	static float32_t const* window = rectangular;
+	static float32_t sum_of_window = sum_rectangular;
+#endif
 
 	//Remove DC Offset
 	float32_t mean;
@@ -410,43 +437,67 @@ static void compute_frequencies(arm_rfft_fast_instance_f32* hfft,float32_t* inpu
 	arm_offset_f32(input_td, -mean, temp, FFT_SIZE);
 
 	//Apply windowing to time data
-	arm_mult_f32(input_td, hanning_window, input_td_windowed, FFT_SIZE);
+	arm_mult_f32(temp, window, input_td_windowed, FFT_SIZE);
 
 	//Apply (Real) Fast FFT to input array
 	arm_rfft_fast_f32(hfft, input_td_windowed, fft_out, ifft_flag);
 
 	//Compute magnitude from complex FFT array
-	arm_cmplx_mag_f32(fft_out, mag_now, HALF_FFT_SIZE);
+	arm_cmplx_mag_f32(fft_out, temp, HALF_FFT_SIZE);
 
-	//Apply compensation factors: *2/N for normalization of one-sided spectrum & *2 for hanning window
-	//Compute dBFS from magnitude - break the computation to steps with pre-computed values for code optimization
-	//dBFS = 20*log10(mag*(4/N)) = 20*(ln(mag*(4/N))/ln(10)) = (20/ln(10))*(ln(mag) + ln(4/N))
-	arm_vlog_f32(mag_now, temp, HALF_FFT_SIZE); // = ln(mag)
-	arm_scale_f32(temp, 8.6858896380, temp2, HALF_FFT_SIZE); // = (20/ln(10))*ln(mag) = 8.685889638*ln(mag)
-	//arm_offset_f32(temp2, -48.1647993062, mag_now, HALF_FFT_SIZE); //= (20/ln(10))*ln(mag) + ((20/ln(10))*ln(4/N)) = 20/ln(10))*ln(mag) -48.16479930623698
-	arm_offset_f32(temp2, 120-48.1647993062, temp, HALF_FFT_SIZE); //= (20/ln(10))*ln(mag) + ((20/ln(10))*ln(4/N)) = 20/ln(10))*ln(mag) -48.16479930623698
-	arm_add_f32(temp,a_weighting_db,mag_now,HALF_FFT_SIZE);
+	//Normalize magnitude, for one-sided FFT and windowing
+	arm_scale_f32(temp, 2.0/sum_of_window , mag_now, HALF_FFT_SIZE);
 
-	//Average spectrum values, with emphasis on newest sample
+	//Average spectrum values
 	for (int i = 0; i < HALF_FFT_SIZE; i++) {
-		out_freq[i] = mag_now[i] * alpha + out_freq[i] * (1 - alpha);
+		output_freq[i] = mag_now[i] * alpha + output_freq[i] * (1 - alpha);
 	}
 
 	fft_done = true;
 }
 
 /**
- * @brief Display the results of the frequency transformation
+ *@brief Scale magnitude to a real-world Decibel value
+ *@param[in] input_freq Result of FFT , in magnitude
+ *@param[out] output_db data after transpose to decibel scale
+ */
+static void scale_frequencies(float32_t* input_freq, float32_t* output_db){
+
+	float32_t dbfs[HALF_FFT_SIZE] = {0};
+	float32_t temp[HALF_FFT_SIZE] = { 0 };
+
+	//Compute dBFS from magnitude - break the computation to steps with pre-computed values for code optimization
+	//dBFS = 20*log10(mag) = 20*(ln(mag*)/ln(10))
+	arm_vlog_f32(input_freq, temp, HALF_FFT_SIZE); // = ln(mag)
+	arm_scale_f32(temp, 8.6858896380, dbfs, HALF_FFT_SIZE); // = (20/ln(10))*ln(mag) = 8.685889638*ln(mag)
+
+	//Offset to dBSPL, based on calibration from mic specification
+#if defined(USE_A_WEIGHTING)
+	//Apply A-Weighting to dBSPL
+	arm_offset_f32(dbfs, 120, temp, HALF_FFT_SIZE);
+	arm_add_f32(temp,a_weighting_db,output_db,HALF_FFT_SIZE);
+#elif defined(USE_C_WEIGHTING)
+	//Apply C-Weighting to dBSPL
+	arm_offset_f32(dbfs, 120, temp, HALF_FFT_SIZE);
+	arm_add_f32(temp,c_weighting_db,output_db,HALF_FFT_SIZE);
+#else
+	arm_offset_f32(dbfs, 120, output_db, HALF_FFT_SIZE);
+#endif
+}
+
+
+/**
+ * @brief Display the results of the frequency computation
  * @param[in] data_out Output data to send to host
  */
-static void show_values(float32_t* data_out) {
+static void show_values(float32_t* data_out, size_t data_out_sz) {
 
-	char str_to_send[8192] = { 0 }; // arbitary size
+	char str_to_send[8192] = { 0 }; // arbitary large size
 	int len = 0;
 
-	// Group data to format '[I0.D0, I1.D1, ... I511,D511]'
+	// Group data to format '[I0.D0, I1.D1, ... IXX,DXX]'
 	len += snprintf(str_to_send + len, sizeof(str_to_send) - len, "[");
-	for (int i = 0; i < HALF_FFT_SIZE; i++) {
+	for (int i = 0; i < data_out_sz; i++) {
 		len += snprintf(str_to_send + len, sizeof(str_to_send) - len, "%.1f,",
 				data_out[i]);
 	}
@@ -480,6 +531,10 @@ void Error_Handler(void) {
 	/* User can add his own implementation to report the HAL error return state */
 	__disable_irq();
 	while (1) {
+		HAL_GPIO_WritePin(LED_DBG_GPIO_Port, LED_DBG_Pin, GPIO_PIN_SET);
+		HAL_Delay(100);
+		HAL_GPIO_WritePin(LED_DBG_GPIO_Port, LED_DBG_Pin, GPIO_PIN_RESET);
+		HAL_Delay(100);
 	}
 	/* USER CODE END Error_Handler_Debug */
 }
