@@ -1,10 +1,10 @@
-# sound_spectrum_mcu
+# Sound Analyzer v1.0
 STM32-powered board to analyze sound from MEMS microphone
 
-## rough steps
-- Complete Demo firmware on STM32401RE-NUCLEO + ICS43434 board 
-- Design HW board 
-- Finalize firmware
+## Description
+Custom-designed board for analyzing sound from environtment and sending frequency data to PC for plotting via USB. 
 
-## project status
+ARM CMSIS DSP functions are being utilized.
+
+## Project status
 In progress 
