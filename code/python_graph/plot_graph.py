@@ -6,12 +6,12 @@ Programm doesn't take any external arguments and shall be run AFTER the respecti
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QGraphicsProxyWidget
 from PySide6.QtCore import QTimer
-import pyqtgraph as pg
-import sys
-import serial
-import numpy as np
-import serial.tools.list_ports
+from pyqtgraph import GraphicsLayoutWidget, mkPen
+from serial import Serial
+from serial.tools.list_ports import comports
+from numpy import asarray, linspace
 from time import sleep
+from sys import exit
 
 DEBUG = False
 FFT_N = 1024
@@ -48,7 +48,7 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
 
     # Connect with device, if required
     if (com_port is None):
-        ports = serial.tools.list_ports.comports()
+        ports = comports()
         for port in sorted(ports):
             if ((port.vid == 0x0483) and (port.pid == 0x5740)
                 ):  # STM32 Virtual COM Port
@@ -75,7 +75,7 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
                 and (values[-1] == '\n')):
             values = values[1:-2].split(',')
             if ('' not in values):
-                values = np.asfarray(values, dtype=float)
+                values = asarray(values, dtype=float)
                 values = values[start_freq_index:stop_freq_index + 1]
             else:
                 raise ValueError
@@ -86,15 +86,15 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
             print(e)
             values = [0 for i in range(stop_freq_index + 1 - start_freq_index)]
         values = None
-    finally:
-        return values
+
+    return values
 
 
 def compute_x_axis(fft_n):
     """Compute X axis of main Plot, according to MEMS Microphone limitations & FFT number"""
     start_freq_index = 0
     stop_freq_index = 0
-    x_axis = np.linspace(0, 24000, fft_n // 2)
+    x_axis = linspace(0, 24000, fft_n // 2)
 
     for i in range(fft_n // 2):
         freq = x_axis[i]
@@ -124,14 +124,14 @@ class MainWindow(QMainWindow):
 
         # Window
         self.setWindowTitle(title)
-        self.win = pg.GraphicsLayoutWidget()
+        self.win = GraphicsLayoutWidget()
         self.win.setBackground('w')
         self.setCentralWidget(self.win)
 
         # Plot
         self.plot_graph = self.win.addPlot()
         self.plot_graph.showGrid(x=True, y=True)
-        self.pen = pg.mkPen(color=(0, 0, 255))
+        self.pen = mkPen(color=(0, 0, 255))
         self.plot_graph.setLabel("left", "dBSPL")
         self.plot_graph.setLabel("bottom", "Hz")
         self.plot_graph.setYRange(0, 120)
@@ -171,7 +171,7 @@ class MainWindow(QMainWindow):
 
 
 def main():
-    app = QApplication(sys.argv)
+    app = QApplication([])
     w = MainWindow()
     w.show()
     app.exec()
