@@ -2,7 +2,7 @@
 
 STM32-powered board for analyzing sound input from MEMS microphones, designed as an open-source, hands-on introduction to DSP on ARM Cortex-M4 processors.
 
-![device_image](./images/3d_image.png)
+![device_image](./images/3d_image.jpg)
 
 ## Table of Contents
 
@@ -56,8 +56,7 @@ In addition, Python >=3.9 shall be installed from [here](https://www.python.org/
 - pyqtgraph
 - Pyserial
 
-PCB files are located on '>dfs'
-
+PCB files are located on `pcb/` folder, while device files can be found on `code/sound_analyzer_v1/` and plot files on `code/plot_graph/`
 
 ### Getting the Source
 
@@ -71,7 +70,7 @@ https://github.com/path321/sound_spectrum_mcu.git
 
 1) Connect the board via USB to your host PC. Make sure that no other STM32-based USB is connected to PC
 
-2) Double click on plot_graph.exe
+2) Unzip plot_graph.zip Double click on plot_graph.exe
 
 3) If you want to stop the live graph, check on the Button on the top right end of the GUI window
 
