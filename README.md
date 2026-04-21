@@ -2,6 +2,8 @@
 
 STM32-powered board for analyzing sound input from MEMS microphones, designed as an open-source, hands-on introduction to DSP on ARM Cortex-M4 processors.
 
+![device_image](./images/3d_image.png)
+
 ## Table of Contents
 
 1. [About the Project](#about-the-project)
@@ -21,9 +23,14 @@ The goal is to demonstrate the full pipeline of audio signal acquisition and tra
 
 The PCB intentionally exposes additional unused pins, allowing users to extend functionality and experiment beyond the core features
 
-![3d_image](./3d_image.png)
+_1kHz sine_
+![1khz](./images/hanning_1khz.jpg)
 
-![1khz](./1khz_screenshot.png)
+Front                      |  Back
+:-------------------------:|:-------------------------:
+![device_image](./images/front.jpg)  |  ![device_image](./images/back.jpg)
+
+
 
 **[Back to top](#table-of-contents)**
 
@@ -70,7 +77,7 @@ https://github.com/path321/sound_spectrum_mcu.git
 
 ### Versioning
 
-This project uses [Semantic Versioning](http://semver.org/). For a list of available versions, see the [repository tag list](https://github.com/your/project/tags).
+This project uses [Semantic Versioning](http://semver.org/). For a list of available versions, see the [repository tag list](https://github.com/path321/sound_spectrum_mcu/tags).
 
 **[Back to top](#table-of-contents)**
 
