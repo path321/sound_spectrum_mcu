@@ -75,7 +75,7 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
                 and (values[-1] == '\n')):
             values = values[1:-2].split(',')
             if ('' not in values):
-                values = np.asfarray(values, dtype=float)
+                values = np.asarray(values, dtype=float)
                 values = values[start_freq_index:stop_freq_index + 1]
             else:
                 raise ValueError
@@ -86,8 +86,8 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
             print(e)
             values = [0 for i in range(stop_freq_index + 1 - start_freq_index)]
         values = None
-    finally:
-        return values
+
+    return values
 
 
 def compute_x_axis(fft_n):
