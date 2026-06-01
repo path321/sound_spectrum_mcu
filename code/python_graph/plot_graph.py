@@ -60,7 +60,7 @@ def get_data_from_device(com_port, rl, start_freq_index, stop_freq_index):
             exit(0)
         else:
             try:
-                ser = serial.Serial(com_port, 12000000)
+                ser = Serial(com_port, 12000000)
                 rl = ReadLine(ser)
             except Exception as e:
                 print(e)

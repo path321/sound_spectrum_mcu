@@ -26,8 +26,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "arm_math.h"
-#include "weighting.h"
-#include "window.h"
+#include "spectrum_analysis.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -39,30 +38,6 @@
 /* USER CODE BEGIN PD */
 #define ARM_MATH_CM4
 
-#define DOUBLE_BUFFER_SIZE 4096
-#define HALF_DOUBLE_BUFFER_SIZE DOUBLE_BUFFER_SIZE/2
-#define FFT_SIZE 1024
-#define HALF_FFT_SIZE FFT_SIZE/2
-#define SAMPLING_RATE 47872//~48000 , taken from CubeMX
-
-#define USE_FLATTOP_WINDOW
-//#define USE_HANNING_WINDOW
-//#define USE_RECTANGULAR_WINDOW
-
-#define USE_A_WEIGHTING
-//#define USE_C_WEIGHTING
-
-#if ((!defined(USE_FLATTOP_WINDOW))&&(!defined(USE_HANNING_WINDOW))&&(!defined(USE_RECTANGULAR_WINDOW)) || (defined(USE_HANNING_WINDOW)&&defined(USE_RECTANGULAR_WINDOW))|| (defined(USE_FLATTOP_WINDOW)&&defined(USE_RECTANGULAR_WINDOW)) || (defined(USE_FLATTOP_WINDOW)&&defined(USE_HANNING_WINDOW)))
-#error "Please choose at least one between GSM,NBIOT and CATM definition"
-#endif
-
-#if defined(USE_A_WEIGHTING) && defined(USE_C_WEIGHTING)
-#error "Please choose only 1 between A and C weighting"
-#endif
-
-#if (DOUBLE_BUFFER_SIZE % FFT_SIZE) != 0
-#error "Input buffer size shall be integer multiple of FFT size"
-#endif
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -75,12 +50,7 @@ I2S_HandleTypeDef hi2s2;
 DMA_HandleTypeDef hdma_spi2_rx;
 
 /* USER CODE BEGIN PV */
-static uint16_t mic_data[DOUBLE_BUFFER_SIZE];
-static volatile uint16_t *buf_ptr = &mic_data[0]; //pointer to each half of buffer
 
-static volatile bool data_ready_flag = false;
-static volatile bool buffer_filled = false;
-static volatile bool fft_done = false;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -89,10 +59,6 @@ static void MX_GPIO_Init(void);
 static void MX_DMA_Init(void);
 static void MX_I2S2_Init(void);
 /* USER CODE BEGIN PFP */
-
-static void process_input_data(float32_t*);
-static void compute_frequencies(arm_rfft_fast_instance_f32*,float32_t*,float32_t*);
-static void scale_frequencies(float32_t* , float32_t* );
 static void show_values(float32_t*, size_t );
 /* USER CODE END PFP */
 
@@ -142,12 +108,6 @@ int main(void) {
 	MX_I2S2_Init();
 	MX_USB_Device_Init();
 	/* USER CODE BEGIN 2 */
-	arm_rfft_fast_instance_f32 hfft;
-	//const float32_t frequency_resolution = (float32_t) SAMPLING_RATE / (float32_t) FFT_SIZE;
-
-	float32_t input_td[FFT_SIZE] = { 0 };
-	float32_t fft_mag[HALF_FFT_SIZE] = { 0 };
-	float32_t output_db[HALF_FFT_SIZE] = { 0 };
 
 	uint32_t last_send = 0;
 	uint32_t refresh_time = 10; //ms
@@ -157,15 +117,11 @@ int main(void) {
 	HAL_GPIO_WritePin(LED_DBG_GPIO_Port, LED_DBG_Pin, GPIO_PIN_RESET);
 	HAL_Delay(500);
 
-	//arm_rfft_fast_init_f32(&hfft, FFT_SIZE);
-#if (FFT_SIZE != 1024)
-#error "Please use respective arm_rfft_fast_init_XXX_f32() function"
-#else
-	arm_rfft_fast_init_1024_f32(&hfft); //Use specific size for less build code size
-#endif
+	// Initialize data stucturel
+	spectrum_init(&spectrum);
 
 	//Start reading from microphones
-	if (HAL_I2S_Receive_DMA(&hi2s2, mic_data, HALF_DOUBLE_BUFFER_SIZE)
+	if (HAL_I2S_Receive_DMA(&hi2s2, spectrum.raw_mic_data, HALF_DOUBLE_BUFFER_SIZE)
 			!= HAL_OK) {
 		Error_Handler();
 	}
@@ -178,22 +134,22 @@ int main(void) {
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	while (1) {
-		if (data_ready_flag) {
-			data_ready_flag = false;
-			process_input_data(input_td);
+		if (spectrum.is_input_data_ready) {
+			spectrum.is_input_data_ready = false;
+			spectrum.process_input(&spectrum);
 		}
 
-		if (buffer_filled) {
-			buffer_filled = false;
-			compute_frequencies(&hfft, input_td,fft_mag);
+		if (spectrum.is_mic_buffer_filled) {
+			spectrum.is_mic_buffer_filled = false;
+			spectrum.compute_spectral_data(&spectrum);
 		}
 
-		if (((HAL_GetTick() - last_send) >= refresh_time) && fft_done && tx_complete) {
+		if (((HAL_GetTick() - last_send) >= refresh_time) && spectrum.is_fft_done && tx_complete) {
 			last_send = HAL_GetTick();
-			fft_done = false;
+			spectrum.is_fft_done = false;
 			tx_complete = false;
-			scale_frequencies(fft_mag, output_db);
-			show_values(output_db, HALF_FFT_SIZE);
+			spectrum.mag_to_db(&spectrum);
+			show_values(spectrum.dB_data, HALF_FFT_SIZE);
 		}
 		/* USER CODE END WHILE */
 
@@ -357,136 +313,6 @@ static void MX_GPIO_Init(void) {
 
 /* USER CODE BEGIN 4 */
 /**
- * @brief Reform incoming data from stereo 24-bit integer to mono float, to prepare them for FFT
- * param[out] input_td Array to store time-domain data from microphone
- */
-static void process_input_data(float32_t* mic_data) {
-
-	static int index = 0;
-	uint16_t input_data[HALF_DOUBLE_BUFFER_SIZE];
-	static const float32_t full_range = 0x7fffff; //2^23 - 1
-
-	//Copy data to avoid corruption
-	memcpy(input_data, (uint16_t*) buf_ptr, sizeof(input_data));
-
-	for (size_t i = 0; i < HALF_DOUBLE_BUFFER_SIZE; i = i + 4) {
-		// Get data from I2S for each channel
-		int32_t left_channel = (((int32_t) input_data[i] << 16)
-				| input_data[i + 1]);
-		int32_t right_channel = (((int32_t) input_data[i + 2] << 16)
-				| input_data[i + 3]);
-
-		//Keep only 24bits and take care of sign
-		left_channel &= 0xFFFFFF;
-		right_channel &= 0xFFFFFF;
-		if (left_channel & 0x800000) {
-			left_channel |= ~0xFFFFFF;
-		}
-		if (right_channel & 0x800000) {
-			right_channel |= ~0xFFFFFF;
-		}
-
-		//Stereo to mono ( (L+R)/2 ) & normalize to Full Scale [-1.0,1.0]
-		float32_t mono = ((float32_t) (left_channel + right_channel) / 2.0)
-				/ full_range;
-
-		mic_data[index] = mono;
-		index++;
-	}
-
-	if (index == FFT_SIZE) {
-		buffer_filled = true;
-		index = 0; // set for next iteration
-	}
-
-}
-
-/**
- * @brief Apply Fast Fourier Transformation to incoming data and compute spectral content of signal
- * @param[in] hfft FFT handler
- * @param[in] input_td Time-domain data from microphone
- * @param[out] out_freq dBFS signal values in frequency
- */
-static void compute_frequencies(arm_rfft_fast_instance_f32* hfft,float32_t* input_td,float32_t* output_freq) {
-
-	//Intermediate buffers used as input/output between actions
-	float32_t input_td_windowed[FFT_SIZE] = { 0 };
-	float32_t fft_out[FFT_SIZE] = { 0 };
-	float32_t mag_now[HALF_FFT_SIZE] = { 0 };
-	float32_t temp[HALF_FFT_SIZE] = { 0 };
-	static const uint8_t ifft_flag = 0;
-
-	//Weight for current values in weighted moving average
-	static const float32_t alpha = 0.5;
-
-	//Window functions
-#if defined(USE_HANNING_WINDOW)
-	static float32_t const* window = hanning;
-	static float32_t sum_of_window = sum_hanning;
-#elif defined(USE_FLATTOP_WINDOW)
-	static float32_t const* window = flattop;
-	static const float32_t sum_of_window = sum_flattop;
-#else
-	static float32_t const* window = rectangular;
-	static float32_t sum_of_window = sum_rectangular;
-#endif
-
-	//Remove DC Offset
-	float32_t mean;
-	arm_mean_f32(input_td, FFT_SIZE, &mean);
-	arm_offset_f32(input_td, -mean, temp, FFT_SIZE);
-
-	//Apply windowing to time data
-	arm_mult_f32(temp, window, input_td_windowed, FFT_SIZE);
-
-	//Apply (Real) Fast FFT to input array
-	arm_rfft_fast_f32(hfft, input_td_windowed, fft_out, ifft_flag);
-
-	//Compute magnitude from complex FFT array
-	arm_cmplx_mag_f32(fft_out, temp, HALF_FFT_SIZE);
-
-	//Normalize magnitude, for one-sided FFT and windowing
-	arm_scale_f32(temp, 2.0/sum_of_window , mag_now, HALF_FFT_SIZE);
-
-	//Average spectrum values
-	for (int i = 0; i < HALF_FFT_SIZE; i++) {
-		output_freq[i] = mag_now[i] * alpha + output_freq[i] * (1 - alpha);
-	}
-
-	fft_done = true;
-}
-
-/**
- *@brief Scale magnitude to a real-world Decibel value
- *@param[in] input_freq Result of FFT , in magnitude
- *@param[out] output_db data after transpose to decibel scale
- */
-static void scale_frequencies(float32_t* input_freq, float32_t* output_db){
-
-	float32_t dbfs[HALF_FFT_SIZE] = {0};
-	float32_t temp[HALF_FFT_SIZE] = { 0 };
-
-	//Compute dBFS from magnitude - break the computation to steps with pre-computed values for code optimization
-	//dBFS = 20*log10(mag) = 20*(ln(mag*)/ln(10))
-	arm_vlog_f32(input_freq, temp, HALF_FFT_SIZE); // = ln(mag)
-	arm_scale_f32(temp, 8.6858896380, dbfs, HALF_FFT_SIZE); // = (20/ln(10))*ln(mag) = 8.685889638*ln(mag)
-
-	//Offset to dBSPL, based on calibration from mic specification
-#if defined(USE_A_WEIGHTING)
-	//Apply A-Weighting to dBSPL
-	arm_offset_f32(dbfs, 120, temp, HALF_FFT_SIZE);
-	arm_add_f32(temp,a_weighting_db,output_db,HALF_FFT_SIZE);
-#elif defined(USE_C_WEIGHTING)
-	//Apply C-Weighting to dBSPL
-	arm_offset_f32(dbfs, 120, temp, HALF_FFT_SIZE);
-	arm_add_f32(temp,c_weighting_db,output_db,HALF_FFT_SIZE);
-#else
-	arm_offset_f32(dbfs, 120, output_db, HALF_FFT_SIZE);
-#endif
-}
-
-
-/**
  * @brief Display the results of the frequency computation
  * @param[in] data_out Output data to send to host
  */
@@ -509,16 +335,16 @@ static void show_values(float32_t* data_out, size_t data_out_sz) {
 
 void HAL_I2S_RxHalfCpltCallback(I2S_HandleTypeDef *hi2s) {
 	// Choose first half of double buffer
-	buf_ptr = &mic_data[0];
+	spectrum.buf_ptr = &spectrum.raw_mic_data[0];
 
-	data_ready_flag = true;
+	spectrum.is_input_data_ready = true;
 }
 
 void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s) {
 	// Choose second half of double buffer
-	buf_ptr = &mic_data[HALF_DOUBLE_BUFFER_SIZE];
+	spectrum.buf_ptr = &spectrum.raw_mic_data[HALF_DOUBLE_BUFFER_SIZE];
 
-	data_ready_flag = true;
+	spectrum.is_input_data_ready = true;
 }
 /* USER CODE END 4 */
 
